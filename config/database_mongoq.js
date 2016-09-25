@@ -6,7 +6,7 @@ module.exports.createCollection = function(collection, db, callback) {
     var DB = db;
 
 
-    var db = mongoq('mongodb://10.70.2.132/caribe_tickets', {
+    var db = mongoq('mongodb://mongodb.caribenordestino.kinghost.net/caribenordesti01', {
       safe: false,
       strict: false,
       auto_reconnect: true,

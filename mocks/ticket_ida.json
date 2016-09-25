@@ -1,0 +1,16 @@
+{
+    "cod_checkin": "R5DEX2SA",
+    "nome_cliente": "Teste",
+    "email_cliente": "skalinichenko@gmail.com",
+    "contratacao": "ida",
+    "data_check": "29-04-2016",
+    "origem": "Recife",
+    "destino": "Maragogi",
+    "horario_origem": ["12:22", ""],
+    "horario_destino": "14:22",
+    "qtd_passageiros": "2",
+    "data_solicitacao": "27-04-2016",
+    "valor_ticket": 200,
+    "status_ticket": false,
+    "observacoes": ""
+}

@@ -27,7 +27,10 @@ module.exports.solicita_cotacao = function(ticket, callback){
   }
   //Fim - Cotacao completa
 
-  bd.insertDocument(ticket, function(result){
+  bd.insertDocument(ticket, function(err, result){
+    if(err){
+      //
+    }
     console.log("::: result: " + result);
   });
 

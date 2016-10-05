@@ -34,9 +34,12 @@ module.exports.insertDocument = function(file, callback) {
         ticket: file
       },
       function(err, result) {
-        assert.equal(err, null);
+        if(err){
+          callback(err, null);
+          assert.equal(err, null);
+        }
         console.log("Ticket inserido com sucesso!");
-        callback();
+        callback(null,result);
       });
   });
 };

@@ -1,0 +1,5 @@
+{
+  "db_url": "caribenordesti01:marcelo1987@mongodb.caribenordestino.kinghost.net/caribenordesti01",
+  "db_base": "caribenordesti01",
+  "db_collection_tickets": "tickets"
+}

@@ -1,5 +1,7 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
+1 verbose cli [ '/home/marcelo/.nvm/versions/node/v4.4.7/bin/node',
+1 verbose cli   '/home/marcelo/.nvm/versions/node/v4.4.7/bin/npm',
+1 verbose cli   'start' ]
 2 info using npm@2.15.8
 3 info using node@v4.4.7
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
@@ -9,10 +11,10 @@
 8 info caribe@1.0.0 Failed to exec start script
 9 verbose stack Error: caribe@1.0.0 start: `node index.js`
 9 verbose stack Exit status 1
-9 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:217:16)
+9 verbose stack     at EventEmitter.<anonymous> (/home/marcelo/.nvm/versions/node/v4.4.7/lib/node_modules/npm/lib/utils/lifecycle.js:217:16)
 9 verbose stack     at emitTwo (events.js:87:13)
 9 verbose stack     at EventEmitter.emit (events.js:172:7)
-9 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+9 verbose stack     at ChildProcess.<anonymous> (/home/marcelo/.nvm/versions/node/v4.4.7/lib/node_modules/npm/lib/utils/spawn.js:24:14)
 9 verbose stack     at emitTwo (events.js:87:13)
 9 verbose stack     at ChildProcess.emit (events.js:172:7)
 9 verbose stack     at maybeClose (internal/child_process.js:827:16)
@@ -20,7 +22,7 @@
 10 verbose pkgid caribe@1.0.0
 11 verbose cwd /media/marcelo/_home/api/caribe_kinghost
 12 error Linux 4.4.0-38-generic
-13 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
+13 error argv "/home/marcelo/.nvm/versions/node/v4.4.7/bin/node" "/home/marcelo/.nvm/versions/node/v4.4.7/bin/npm" "start"
 14 error node v4.4.7
 15 error npm  v2.15.8
 16 error code ELIFECYCLE

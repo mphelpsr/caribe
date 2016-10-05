@@ -1,11 +1,13 @@
 var moment = require('moment');
-var bd = require('../config/database_mongoq.js');
+var bd = require('../config/db_mongo.js');
 var email = require('../util/email.js');
 var texts = require('../util/strings.js');
 var util = require('../util/funcoes.js');
 var Cliente = require('../models/Cliente.js')();
 var valida_ida = require('../validation/validation_ticket_ida.js');
 var valida_full = require('../validation/validation_ticket_full.js');
+
+var cotacao = require('../processors/cotacao.js');
 
 module.exports = function(app) {
 
@@ -78,37 +80,22 @@ module.exports = function(app) {
               res.status(422).send(err);
             } else if (done) {
               //console.log('Passou na validacao. Done: ' + done);
-              var html_cotacao = texts.cotacao(ticket);
 
-              bd.createCollection('tickets', 'caribe_tickets', function(collection) {
+
+              cotacao.solicita_cotacao(ticket, function(result){
+                console.log("::: result: " + result);
+              });
+
+
+
+              bd.getCollection(function(collection) {
                 collection.insert({
                   ticket: ticket
                 });
                 //console.log('Codigo de cod_checkin gerado: ' + cod_check);
-                //Inicio - Cotacao simples
-                if(ticket.data_check == ''){
-                  var html_cotacao_info = texts.cotacao_informativa(ticket);
-                  if (ticket.observacoes!='') {
-                    var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
-                    _txt += '<p/>' + ticket.observacoes;
-                    email.send('info@caribenordestino.com.br', 'Observacao - ' + texts.sub_cotacao, '', _txt, cod_check);
-                  }
-                  email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao_info, 'INFORMATIVA-COD_CHECK:' + cod_check);
-                  res.sendStatus(200);
-                //Fim - Cotacao simples
-                //Inicio - Cotacao completa
-                }else{
-                  //E-mail para consultores
-                  if (ticket.observacoes!='') {
-                    var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
-                    _txt += '<p/>' + ticket.observacoes;
-                    email.send('info@caribenordestino.com.br', 'Observacao - ' + texts.sub_cotacao, '', _txt, cod_check);
-                  }
-                  email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
-                  res.sendStatus(200);
-                }
-                //Fim - Cotacao completa
+
               });
+
 
             } else {
               console.log('Nao passou validacao. Done: ' + done);
@@ -192,7 +179,7 @@ module.exports = function(app) {
               //console.log('Passou na validacao. Done: ' + done);
               var html_cotacao = texts.cotacao_full(ticket);
 
-              bd.createCollection('tickets', 'caribe_tickets', function(collection) {
+              bd.getCollection('tickets', 'caribenordesti01', function(collection) {
                 collection.insert({
                   ticket: ticket
                 });

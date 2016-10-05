@@ -1,5 +1,5 @@
 var moment = require('moment');
-var bd = require('../config/database_mongoq.js');
+var bd = require('../config/db_mongo.js');
 var email = require('../util/email.js');
 var texts = require('../util/strings.js');
 var util = require('../util/funcoes.js');
@@ -12,7 +12,7 @@ module.exports = function(app) {
   // Lista todos os tickets
   app.route("/tickets/")
     .get(function(req, res) {
-      bd.createCollection('tickets', 'caribe_tickets', function(collection) {
+      bd.getCollection('tickets', 'caribenordesti01', function(collection) {
         collection.find().toArray(function(err, result) {
 
           if(err || !result){
@@ -25,7 +25,7 @@ module.exports = function(app) {
             }
             res.json(_res);
           }
-          
+
         });
       });
 
@@ -38,7 +38,7 @@ module.exports = function(app) {
       var params = req.params.cod_checkin;
       var _passageiros = [];
 
-      bd.createCollection('tickets', 'caribe_tickets', function(collection) {
+      bd.getCollection('tickets', 'caribenordesti01', function(collection) {
 
         collection.findOne({
           'ticket.cod_checkin': params

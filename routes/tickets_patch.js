@@ -1,5 +1,5 @@
 var moment = require('moment');
-var bd = require('../config/database_mongoq.js');
+var bd = require('../config/db_mongo.js');
 var email = require('../util/email.js');
 var texts = require('../util/strings.js');
 
@@ -11,7 +11,7 @@ module.exports = function(app) {
       var params = req.params.cod_checkin;
       var _status = req.params.status_ticket;
 
-      bd.createCollection('tickets', 'caribe_tickets', function(collection) {
+      bd.getCollection('tickets', 'caribenordesti01', function(collection) {
 
         collection.findOne({
           'ticket.cod_checkin': params

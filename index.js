@@ -6,12 +6,14 @@ var express = require('express'),
     methodOverride = require('method-override'),
     expressValidator = require('express-validator');
 
-port = 21087;
-
+var port = 21087;
+var application_root = __dirname;
 var app = express();
+
+app.use(express.static(application_root));
 app.use(cookieParser('caribe_tickets'));
 app.use(expressSession({
-    secret: 'caribenordestino',
+    secret: 'caribe_kinghost',
     resave: true,
     saveUninitialized: true
 }));

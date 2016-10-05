@@ -7,7 +7,7 @@ var Cliente = require('../models/Cliente.js')();
 var valida_ida = require('../validation/validation_ticket_ida.js');
 var valida_full = require('../validation/validation_ticket_full.js');
 
-var cotacao = require('../processors/cotacao.js');
+var cotacao_ida = require('../processors/cotacao_apenas_ida.js');
 
 module.exports = function(app) {
 
@@ -21,89 +21,12 @@ module.exports = function(app) {
     switch (params) {
       case 'ida':
 
-        var cod_check = util.gerar_string_alfanumerica(8);
-        var data_solicitacao = moment().format('DD-MM-YYYY');
-        var status_ticket = false;
-
-        //Valores obtidos do formulario
-        var _qtd_passageiros = req.body.qtd_passageiros;
-        var _origem = req.body.combo_trecho_ida[0];
-        var _destino = req.body.combo_trecho_volta[0];
-        var valor_ticket = util.calc_valores(_origem, _destino, _qtd_passageiros);
-        var horario_destino = util.tempo_transfer(req.body.horario_origem[0], _origem, _destino);
-
-        ticket = {
-          cod_checkin: cod_check,
-          nome_cliente: req.body.nome_cliente,
-          email_cliente: req.body.email_cliente,
-          contratacao: contratacao,
-
-          data_check: req.body.data_check_ida[0],
-          origem: _origem,
-          destino: _destino,
-          horario_origem: req.body.horario_origem,
-          horario_destino: horario_destino,
-
-          qtd_passageiros: _qtd_passageiros,
-          data_solicitacao: data_solicitacao,
-          valor_ticket: valor_ticket,
-          status_ticket: status_ticket,
-          observacoes: req.body.observacoes
-        };
-
-        //  Regra de exceções
-        if (!ticket.origem || !ticket.destino || !ticket.origem && !ticket.destino) {
-          var html_cotacao = texts.cotacao_sem_trechos(ticket);
-          email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
-          res.sendStatus(422);
-
-        } else if (ticket.origem == '------' || ticket.destino == '------') {
-          var html_cotacao = texts.cotacao_sem_trechos(ticket);
-          email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
-          res.sendStatus(422);
-
-        } else if (ticket.origem == ticket.destino) {
-          var html_cotacao = texts.cotacao_trecho_indisponivel(ticket);
-          email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
-          res.sendStatus(422);
-
-        } else if (ticket.qtd_passageiros > 4) {
-          var html_cotacao = texts.cotacao_qtd_indisponivel(ticket);
-          email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
-          res.sendStatus(422);
-
-        } else {
-
-          //Validacao do ticket
-          valida_ida.ok(ticket, req, res, function(err, done) {
-            if (err) {
-              res.status(422).send(err);
-            } else if (done) {
-              //console.log('Passou na validacao. Done: ' + done);
-
-
-              cotacao.solicita_cotacao(ticket, function(result){
-                console.log("::: result: " + result);
-              });
-
-
-
-              bd.getCollection(function(collection) {
-                collection.insert({
-                  ticket: ticket
-                });
-                //console.log('Codigo de cod_checkin gerado: ' + cod_check);
-
-              });
-
-
-            } else {
-              console.log('Nao passou validacao. Done: ' + done);
-              res.sendStatus(422);
-            }
-          });
-
-        }
+        cotacao_ida.solicita_cotacao(ticket, req, res, function(err, result) {
+          if (err) {
+            res.sendStatus(500);
+          }
+          res.sendStatus(200);
+        });
 
         break;
 
@@ -149,8 +72,7 @@ module.exports = function(app) {
         };
 
         //  Regra de exceções
-        if (!ticket.origem_ida || !ticket.destino_ida || !ticket.origem_ida && !ticket.destino_ida
-        || !ticket.origem_volta || !ticket.destino_volta || !ticket.origem_volta && !ticket.destino_volta) {
+        if (!ticket.origem_ida || !ticket.destino_ida || !ticket.origem_ida && !ticket.destino_ida || !ticket.origem_volta || !ticket.destino_volta || !ticket.origem_volta && !ticket.destino_volta) {
           var html_cotacao = texts.cotacao_trecho_indisponivel(ticket);
           email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
           res.sendStatus(422);
@@ -184,20 +106,20 @@ module.exports = function(app) {
                   ticket: ticket
                 });
                 //console.log('Codigo de cod_checkin gerado: ' + cod_check);
-                if(ticket.data_check_ida == '' || ticket.data_check_volta == ''){
+                if (ticket.data_check_ida == '' || ticket.data_check_volta == '') {
                   var html_cotacao_info = texts.cotacao_informativa_full(ticket);
-                  if (ticket.observacoes!='') {
+                  if (ticket.observacoes != '') {
                     var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
                     _txt += '<p/>' + ticket.observacoes;
                     email.send('info@caribenordestino.com.br', 'Observacao - ' + texts.sub_cotacao, '', _txt, cod_check);
                   }
                   email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao_info, 'INFORMATIVA-COD_CHECK:' + cod_check);
                   res.sendStatus(200);
-                //Fim - Cotacao simples
-                //Inicio - Cotacao completa
-                }else{
+                  //Fim - Cotacao simples
+                  //Inicio - Cotacao completa
+                } else {
                   //E-mail para consultores
-                  if (ticket.observacoes!='') {
+                  if (ticket.observacoes != '') {
                     var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
                     _txt += '<p/>' + ticket.observacoes;
                     email.send('info@caribenordestino.com.br', 'Observacao - ' + texts.sub_cotacao, '', _txt, cod_check);

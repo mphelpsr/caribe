@@ -18,9 +18,9 @@ self.getCollection = function(callback) {
   });
 
   self.DB.on('connect', function() {
-    console.log('Database CONNECTED. DB: ' + self.DB_CONFIG + '--- COLLECTION: ' + self.COLLECTION);
+    console.log('Database CONNECTED. DB: ' + self.DB_CONFIG + ' --- COLLECTION: ' + self.COLLECTION);
   });
-
+  
   callback(self.DB.collection(self.COLLECTION));
 };
 
@@ -38,7 +38,6 @@ module.exports.insertDocument = function(file, callback) {
           callback(err, null);
           assert.equal(err, null);
         }
-        console.log("Ticket inserido com sucesso!");
         callback(null,result);
       });
   });

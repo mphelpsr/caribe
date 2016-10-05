@@ -1,13 +1,14 @@
 var nodemailer = require('nodemailer');
 var moment = require('moment');
+var config = require("../config/cfg_email.json");
 
 var smtpConfig = {
-    host: 'email-ssl.com.br',
-    port: 465,
-    secure: true, // use SSL
+    host: config.mail_host,
+    port: config.mail_port,
+    secure: config.mail_security, // use SSL
     auth: {
-        user: 'cotacao@caribenordestino.com.br',
-        pass: 'c@ribeverao2017'
+        user: config.mail_uids.user,
+        pass: config.mail_uids.pass
     }
 };
 
@@ -15,7 +16,7 @@ var transporter = nodemailer.createTransport(smtpConfig);
 
 module.exports.send = function(_to, _subject, _text, _html, _cod) {
     var mailOptions = {
-        from: 'Caribe Nordestino<info@caribenordestino.com.br>',
+        from: config.mail_from,
         to: _to,
         subject: _subject,
         text: _text,

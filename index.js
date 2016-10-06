@@ -29,11 +29,16 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 load('config')
     .then('routes')
     .into(app);
 
 app.listen(port, function() {
     console.log('Caribe no ar. Porta: ' + port);
+});
+
+app.get("/", function(req, res) {
+    res.json({
+        status: "Caribe no ar!"
+    })
 });

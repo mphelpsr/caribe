@@ -71,12 +71,12 @@ module.exports.listDocuments = function(callback) {
 /*
  * Pesquisa documentos
  */
-module.exports.searchDocuments = function(file, callback) {
+module.exports.searchDocuments = function(id, callback) {
 
   self.getCollection(function(collection) {
 
     collection.findOne({
-      'cod_checkin': params
+      'tickets.cod_checkin': id
     }, function(err, result) {
       if (err || !result) {
         callback(null, []);

@@ -14,7 +14,7 @@ module.exports.lista_todos = function(callback) {
 
 module.exports.lista_um = function(cod_checkin, callback) {
 
-  bd.searchDocuments(tickets, function(err, result) {
+  bd.searchDocuments(cod_checkin, function(err, result) {
     if (err) {
       callback(err, 500);
     }

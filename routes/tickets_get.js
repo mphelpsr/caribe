@@ -35,6 +35,7 @@ module.exports = function(app) {
         res.json(result);
       });
 
+      /*
       var params = req.params.cod_checkin;
       var _passageiros = [];
 
@@ -126,5 +127,6 @@ module.exports = function(app) {
           }
         });
       });
+      */
     });
 }

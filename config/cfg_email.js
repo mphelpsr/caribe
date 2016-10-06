@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 var moment = require('moment');
-var config = require("../config/cfg_email.json");
+var config = require("./cfg_email.json");
 
 var smtpConfig = {
     host: config.mail_host,

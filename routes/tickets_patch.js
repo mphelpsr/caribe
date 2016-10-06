@@ -1,6 +1,6 @@
 var moment = require('moment');
 var bd = require('../config/db_mongo.js');
-var email = require('../util/email.js');
+var email = require('../config/cfg_email.js');
 var texts = require('../util/strings.js');
 
 module.exports = function(app) {

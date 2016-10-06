@@ -11,3 +11,14 @@ module.exports.lista_todos = function(callback) {
   });
 
 };
+
+module.exports.lista_um = function(tickets, callback) {
+
+  bd.searchDocuments(tickets, function(err, result) {
+    if (err) {
+      callback(err, 500);
+    }
+    console.log(result);
+  });
+
+};

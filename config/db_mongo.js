@@ -45,25 +45,45 @@ module.exports.insertDocument = function(file, callback) {
 
 
 /*
- * Insere documentos no BD
+ * Lista documentos
  */
 module.exports.listDocuments = function(callback) {
 
-    self.getCollection(function(collection) {
+  self.getCollection(function(collection) {
 
-        collection.find().toArray(function(err, result) {
+    collection.find().toArray(function(err, result) {
 
-          if (err || !result) {
-            callback(err, null);
-          }
+      if (err) {
+        callback(err, null);
+      }
 
-          var _res = [];
-          for (var i = 0; i < result.length; i++) {
-            _res.push(result[i].ticket.cod_checkin + ' - ' + result[i].ticket.nome_cliente);
-          }
-          callback(null, _res);
-        });
+      var _res = [];
+      for (var i = 0; i < result.length; i++) {
+        _res.push(result[i].ticket.cod_checkin + ' - ' + result[i].ticket.nome_cliente);
+      }
+      callback(null, _res);
+    });
 
-      });
+  });
 
-    };
+};
+
+/*
+ * Pesquisa documentos
+ */
+module.exports.searchDocuments = function(file, callback) {
+
+  self.getCollection(function(collection) {
+
+    collection.findOne({
+      'file.cod_checkin': params
+    }, function(err, result) {
+      if (err || !result) {
+        callback(null, []);
+      }
+      callback(null, result);
+    });
+
+  });
+
+};

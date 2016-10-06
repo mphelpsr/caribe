@@ -69,14 +69,14 @@ module.exports.listDocuments = function(callback) {
 };
 
 /*
- * Pesquisa documentos
+ * Pesquisa de documentos
  */
 module.exports.searchDocuments = function(id, callback) {
 
   self.getCollection(function(collection) {
 
     collection.findOne({
-      'tickets.cod_checkin': id
+      'ticket.cod_checkin': id
     }, function(err, result) {
       if (err || !result) {
         callback(null, []);

@@ -18,7 +18,7 @@ module.exports.lista_um = function(cod_checkin, callback) {
     if (err) {
       callback(err, 500);
     }
-    console.log(result);
+    callback(null, result);
   });
 
 };

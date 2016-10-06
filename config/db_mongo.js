@@ -76,7 +76,7 @@ module.exports.searchDocuments = function(file, callback) {
   self.getCollection(function(collection) {
 
     collection.findOne({
-      'file.cod_checkin': params
+      'cod_checkin': params
     }, function(err, result) {
       if (err || !result) {
         callback(null, []);

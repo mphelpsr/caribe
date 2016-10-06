@@ -28,6 +28,13 @@ module.exports = function(app) {
   app.route("/tickets/:cod_checkin")
     .get(function(req, res) {
 
+      tickets.lista_um(req.params.cod_checkin, function(err, result) {
+        if (err) {
+          res.sendStatus(result);
+        }
+        res.json(result);
+      });
+
       var params = req.params.cod_checkin;
       var _passageiros = [];
 

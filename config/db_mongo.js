@@ -20,7 +20,7 @@ self.getCollection = function(callback) {
   self.DB.on('connect', function() {
     console.log('Database CONNECTED. DB: ' + self.DB_CONFIG + ' --- COLLECTION: ' + self.COLLECTION);
   });
-  
+
   callback(self.DB.collection(self.COLLECTION));
 };
 
@@ -34,11 +34,36 @@ module.exports.insertDocument = function(file, callback) {
         ticket: file
       },
       function(err, result) {
-        if(err){
+        if (err) {
           callback(err, null);
           assert.equal(err, null);
         }
-        callback(null,result);
+        callback(null, result);
       });
   });
 };
+
+
+/*
+ * Insere documentos no BD
+ */
+module.exports.listDocuments = function(callback) {
+
+    self.getCollection(function(collection) {
+
+        collection.find().toArray(function(err, result) {
+
+          if (err || !result) {
+            callback(err, null);
+          }
+
+          var _res = [];
+          for (var i = 0; i < result.length; i++) {
+            _res.push(result[i].ticket.cod_checkin + ' - ' + result[i].ticket.nome_cliente);
+          }
+          callback(null, _res);
+        });
+
+      });
+
+    };

@@ -7,26 +7,19 @@ var Cliente = require('../models/Cliente.js')();
 var valida_ida = require('../validation/validation_ticket_ida.js');
 var valida_full = require('../validation/validation_ticket_full.js');
 
+var tickets = require('../processors/lista_tickets.js');
+
 module.exports = function(app) {
 
   // Lista todos os tickets
   app.route("/tickets/")
     .get(function(req, res) {
-      bd.getCollection('tickets', 'caribenordesti01', function(collection) {
-        collection.find().toArray(function(err, result) {
 
-          if(err || !result){
-            res.sendStatus(500);
-
-          }else{
-            var _res = [];
-            for (var i = 0; i < result.length; i++) {
-              _res.push(result[i].ticket.cod_checkin + ' - ' + result[i].ticket.nome_cliente);
-            }
-            res.json(_res);
-          }
-
-        });
+      tickets.lista_todos(function(err, result) {
+        if (err) {
+          res.sendStatus(result);
+        }
+        res.json(result);
       });
 
     });

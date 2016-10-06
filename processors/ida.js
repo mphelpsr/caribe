@@ -5,7 +5,7 @@ var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
 
-module.exports.solicita_cotacao = function(ticket, req, res, callback) {
+module.exports.orcamento = function(req, res, callback) {
 
   var cod_check = util.gerar_string_alfanumerica(8);
   var data_solicitacao = moment().format('DD-MM-YYYY');
@@ -17,8 +17,9 @@ module.exports.solicita_cotacao = function(ticket, req, res, callback) {
   var _destino = req.body.combo_trecho_volta[0];
   var valor_ticket = util.calc_valores(_origem, _destino, _qtd_passageiros);
   var horario_destino = util.tempo_transfer(req.body.horario_origem[0], _origem, _destino);
+  var contratacao = req.body.rd_trecho == 'volta' ? contratacao = 'full' : contratacao = 'ida';
 
-  ticket = {
+  var ticket = {
     cod_checkin: cod_check,
     nome_cliente: req.body.nome_cliente,
     email_cliente: req.body.email_cliente,
@@ -62,10 +63,11 @@ module.exports.solicita_cotacao = function(ticket, req, res, callback) {
 
     bd.insertDocument(ticket, function(err, result) {
       if (err) {
-        callback(err, null);
+        callback(err, 500);
       }
 
       var html_cotacao = texts.cotacao(ticket);
+
       if (ticket.data_check == '') {
 
         var html_cotacao_info = texts.cotacao_informativa(ticket);

@@ -1,5 +1,5 @@
 var express = require('express'),
-    load = require('express-load'),
+    consign = require('consign-develop'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     expressSession = require('express-session'),
@@ -29,16 +29,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-load('config')
-    .then('routes')
-    .into(app);
+consign()
+  .include('config')
+  .then('routes')
+  .into(app);
 
 app.listen(port, function() {
     console.log('Caribe no ar. Porta: ' + port);
-});
-
-app.get("/", function(req, res) {
-    res.json({
-        status: "Caribe no ar!"
-    })
 });

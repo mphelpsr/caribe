@@ -17,10 +17,6 @@ self.getCollection = function(callback) {
     console.log('Database ERROR!', err);
   });
 
-  self.DB.on('connect', function() {
-    console.log('Database CONNECTED. DB: ' + self.DB_CONFIG + ' --- COLLECTION: ' + self.COLLECTION);
-  });
-
   callback(self.DB.collection(self.COLLECTION));
 };
 

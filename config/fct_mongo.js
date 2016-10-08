@@ -15,7 +15,7 @@ self.getCollection = function(callback) {
 
   self.DB = mongojs(self.URL, [self.COLLECTION]);
   self.DB.on('error', function(err) {
-    console.log('Database ERROR!', err);
+    console.log('error', error);
   });
 
   callback(self.DB.collection(self.COLLECTION));
@@ -35,6 +35,7 @@ module.exports.insertDocument = function(file, callback) {
           callback(err, null);
           assert.equal(err, null);
         }
+        console.log('Ticket inserido');
         callback(null, result);
       });
   });
@@ -51,6 +52,7 @@ module.exports.listDocuments = function(callback) {
     collection.find().toArray(function(err, result) {
 
       if (err) {
+        console.log('error', error);
         callback(err, null);
       }
 
@@ -58,6 +60,7 @@ module.exports.listDocuments = function(callback) {
       for (var i = 0; i < result.length; i++) {
         _res.push(result[i].ticket.cod_checkin + ' - ' + result[i].ticket.nome_cliente);
       }
+      console.log('Tickets listados.');
       callback(null, _res);
     });
 
@@ -76,6 +79,7 @@ module.exports.searchDocuments = function(id, callback) {
       'ticket.cod_checkin': id
     }, function(err, result) {
       if (err) {
+        console.log('error', error);
         callback(err, null);
       } else if (result) {
         var _passageiros = [];
@@ -87,8 +91,10 @@ module.exports.searchDocuments = function(id, callback) {
           _passageiros[i] = _cliente;
         }
         result.ticket.passageiros = _passageiros;
+        console.log('Ticket encontrado: ' + result.ticket.cod_checkin);
         callback(null, result);
-      }else{
+      } else {
+        console.log('Ticket nao encontrado');
         callback(null, []);
       }
 

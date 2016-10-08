@@ -1,6 +1,6 @@
-var bd = require('../config/db_mongo.js');
+var bd = require('../config/fct_mongo.js');
 var texts = require('../util/strings.js');
-var email = require('../config/cfg_email.js');
+var email = require('../config/fct_email.js');
 var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
@@ -75,6 +75,7 @@ module.exports.orcamento = function(req, callback) {
         if (ticket.observacoes != '') {
           var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
           _txt += '<p/>' + ticket.observacoes;
+
           email.send(config.mail_info, 'Observacao - ' + texts.sub_cotacao, '', _txt, ticket.cod_checkin);
         }
 

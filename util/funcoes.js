@@ -378,7 +378,7 @@ function subtraiHora(hrA, hrB) {
   }
   novo_m = temp.toString().length == 2 ? temp : ("0" + temp);
 
-  temp = hora1 -hora2 - nova_h;
+  temp = hora1 - hora2 - nova_h;
   while (temp < 0) {
     temp = temp + 24;
   }
@@ -407,12 +407,12 @@ module.exports.tempo_transfer = function(horaInicio, origem, destino) {
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
-	  
-	default:
-	  var _total = somaHora(horaInicio, '02:00', true);
+
+        default:
+          var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
-	
+
       }
       break;
 
@@ -432,11 +432,11 @@ module.exports.tempo_transfer = function(horaInicio, origem, destino) {
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
-	  
-	default: 
-	  var _total = somaHora(horaInicio, '02:00', true);
+
+        default:
+          var _total = somaHora(horaInicio, '02:00', true);
           return _total;
-          break;	  
+          break;
 
       }
       break;
@@ -457,11 +457,11 @@ module.exports.tempo_transfer = function(horaInicio, origem, destino) {
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
-	  
-	default:
-	  var _total = somaHora(horaInicio, '02:00', true);
+
+        default:
+          var _total = somaHora(horaInicio, '02:00', true);
           return _total;
-          break;	  
+          break;
 
       }
       break;

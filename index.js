@@ -6,6 +6,7 @@ var express = require('express'),
   methodOverride = require('method-override'),
   expressValidator = require('express-validator');
 
+
 /* Inicio - Controladores */
 var controller_tickets_get = require('./controllers/controller_tickets_get.js');
 var controller_tickets_post = require('./controllers/controller_tickets_post.js');
@@ -36,12 +37,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-consign()
-  .include('config')
-  .then('routes')
-  .into(app);
-
 /* Inicio rotas */
+app.route("/")
+  .post(function(req, res) {
+    res.json(res.status);
+  });
+
+//Envio e-mail de duvidas para consultor
 app.route("/infos/")
   .post(function(req, res) {
     controller_infos_post.executa(req, function(result) {

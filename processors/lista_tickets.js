@@ -1,4 +1,4 @@
-var bd = require('../config/db_mongo.js');
+var bd = require('../config/fct_mongo.js');
 
 module.exports.lista_todos = function(callback) {
 

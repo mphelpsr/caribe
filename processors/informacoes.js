@@ -1,4 +1,4 @@
-var email = require('../config/cfg_email.js');
+var email = require('../config/fct_email.js');
 var config = require("../config/cfg_email.json");
 
 module.exports.solicitacao = function(req, callback) {

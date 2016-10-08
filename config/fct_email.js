@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 var moment = require('moment');
-var config = require("./cfg_email.json");
+var config = require('../config/cfg_email.json');
 
 var smtpConfig = {
     host: config.mail_host,
@@ -25,8 +25,8 @@ module.exports.send = function(_to, _subject, _text, _html, _cod) {
 
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
-            console.log('Error email: ' + error);
+            console.log('error', error);
         }
-        console.log('::: Cotacao! E-mail: ' + mailOptions.to + '. Codigo: ' + _cod + '----- Data: ' + moment().format('DD-MM-YYYY'));
+        console.log('::: Cotacao! E-mail: ' + mailOptions.to + '. Codigo: ' + _cod);
     });
 }

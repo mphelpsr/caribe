@@ -8,7 +8,7 @@ module.exports.executa = function(req, callback){
   switch (contratacao) {
     case 'ida':
 
-      ida.orcamento(req, res, function(err, result) {
+      ida.orcamento(req, function(err, result) {
         if (err) {
           callback(result);
         }
@@ -19,7 +19,7 @@ module.exports.executa = function(req, callback){
 
     case 'full':
 
-      ida_volta.orcamento(req, res, function(err, result) {
+      ida_volta.orcamento(req, function(err, result) {
         if (err) {
           callback(result);
         }

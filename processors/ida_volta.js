@@ -5,7 +5,7 @@ var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
 
-module.exports.orcamento = function(req, res, callback) {
+module.exports.orcamento = function(req, callback) {
 
   var cod_check = util.gerar_string_alfanumerica(8);
   var data_solicitacao = moment().format('DD-MM-YYYY');
@@ -74,6 +74,8 @@ module.exports.orcamento = function(req, res, callback) {
       if (err) {
         callback(err, 500);
       }
+      var html_cotacao = texts.cotacao_full(ticket);
+
       if (ticket.data_check_ida == '' || ticket.data_check_volta == '') {
 
         var html_cotacao_info = texts.cotacao_informativa_full(ticket);

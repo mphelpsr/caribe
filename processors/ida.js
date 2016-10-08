@@ -5,7 +5,7 @@ var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
 
-module.exports.orcamento = function(req, res, callback) {
+module.exports.orcamento = function(req, callback) {
 
   var cod_check = util.gerar_string_alfanumerica(8);
   var data_solicitacao = moment().format('DD-MM-YYYY');

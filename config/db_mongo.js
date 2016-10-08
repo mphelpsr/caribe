@@ -2,6 +2,7 @@ var mongojs = require("mongojs");
 var config = require("./cfg_mongo.json");
 var assert = require('assert');
 var self = this;
+var Cliente = require('../models/Cliente.js')();
 self.COLLECTION = config.db_collection_tickets;
 self.URL = config.db_url;
 self.DB_CONFIG = config.db_base;
@@ -74,10 +75,23 @@ module.exports.searchDocuments = function(id, callback) {
     collection.findOne({
       'ticket.cod_checkin': id
     }, function(err, result) {
-      if (err || !result) {
+      if (err) {
+        callback(err, null);
+      } else if (result) {
+        var _passageiros = [];
+        for (var i = 0; i < parseInt(result.ticket.qtd_passageiros) - 1; i++) {
+          var _cliente = new Cliente();
+          _cliente.setNome_cliente('');
+          _cliente.setTipo_documento('');
+          _cliente.setDocumento('');
+          _passageiros[i] = _cliente;
+        }
+        result.ticket.passageiros = _passageiros;
+        callback(null, result);
+      }else{
         callback(null, []);
       }
-      callback(null, result);
+
     });
 
   });

@@ -14,3 +14,28 @@ No diretório raiz da aplicação, apenas executar o comando de instalação do 
 
 npm install
 ```
+
+Todos as bibliotecas necessárias estão listadas no arquivo package.json da aplicação.
+
+
+```
+#!json
+
+"dependencies": {
+    "assert": "^1.4.1",
+    "async": "^2.0.1",
+    "body-parser": "^1.15.0",
+    "consign": "^0.1.2",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "express-validator": "~2.20.3",
+    "method-override": "^2.3.5",
+    "moment": "^2.12.0",
+    "mongodb": "^2.2.10",
+    "mongojs": "^2.4.0",
+    "nodemailer": "^2.4.2",
+    "winston": "^2.2.0"
+  }
+```

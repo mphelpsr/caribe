@@ -1,5 +1,4 @@
 var express = require('express'),
-  consign = require('consign'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   expressSession = require('express-session'),

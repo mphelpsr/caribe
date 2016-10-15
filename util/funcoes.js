@@ -18,11 +18,11 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       switch (destino) {
         case 'Maragogi':
           if (passageiros == 1 || passageiros == 2) {
-            return 180.00;
+            return 190.00;
           } else if (passageiros == 3) {
-            return 200.00;
+            return 210.00;
           } else {
-            return 220.00;
+            return 230.00;
           }
 
         case 'Sao M dos Milagres':
@@ -68,11 +68,11 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       switch (destino) {
         case 'Maragogi':
           if (passageiros == 1 || passageiros == 2) {
-            return 180.00;
+            return 190.00;
           } else if (passageiros == 3) {
-            return 200.00;
+            return 210.00;
           } else {
-            return 220.00;
+            return 230.00;
           }
 
         case 'Sao M dos Milagres':
@@ -118,11 +118,11 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       switch (destino) {
         case 'Recife':
           if (passageiros == 1 || passageiros == 2) {
-            return 180.00;
+            return 190.00;
           } else if (passageiros == 3) {
-            return 200.00;
+            return 210.00;
           } else {
-            return 220.00;
+            return 230.00;
           }
 
         case 'Sao M dos Milagres':
@@ -154,11 +154,11 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
 
         case 'Maceio':
           if (passageiros == 1 || passageiros == 2) {
-            return 180.00;
+            return 190.00;
           } else if (passageiros == 3) {
-            return 200.00;
+            return 210.00;
           } else {
-            return 220.00;
+            return 230.00;
           }
 
       }

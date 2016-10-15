@@ -10,7 +10,6 @@
     "assert": "^1.4.1",
     "async": "^2.0.1",
     "body-parser": "^1.15.0",
-    "consign": "^0.1.2",
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",

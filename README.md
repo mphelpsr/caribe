@@ -1,10 +1,10 @@
 # Caribe Tickets - Geração de tickets
 
-Sistema de cotações de transfers utilizando Node.js, MongoDB e NodeMailer. 
+Sistema de cotações de transfers utilizando Node.js, MongoDB e NodeMailer.
 
 ## Instalação e Configuração
 
-A instalação é simples. 
+A instalação é simples.
 
 No diretório raiz da aplicação, apenas executar o comando de instalação do NPM. Ele baixará todas as dependências do projeto. Vale ressaltar que é necessário ter uma coleção (collection) de dados já configurada e preparar a *string* de conexão para ser inserida no arquivo de configuração do MongoDB.
 
@@ -25,7 +25,6 @@ Todos as bibliotecas necessárias estão listadas no arquivo package.json da apl
     "assert": "^1.4.1",
     "async": "^2.0.1",
     "body-parser": "^1.15.0",
-    "consign": "^0.1.2",
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",

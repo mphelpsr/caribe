@@ -15,7 +15,7 @@ var controller_infos_post = require('./controllers/controller_infos_post.js');
 
 var port = 21087;
 var application_root = __dirname;
-var app = express();
+var app = express(); 
 
 app.use(express.static(application_root));
 app.use(cookieParser('caribe_tickets'));

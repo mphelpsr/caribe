@@ -4,41 +4,53 @@ var email = require('../config/fct_email.js');
 var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
+var parser_json = require('../util/parser_transfer.js');
 
 module.exports.orcamento = function(req, callback) {
 
-  var cod_check = util.gerar_string_alfanumerica(8);
-  var data_solicitacao = moment().format('DD-MM-YYYY');
-  var status_ticket = false;
+  if(req.get('Content-Type') == "application/json"){
+    parser_json.tratamento(req, function(result){
+      ticket = result;
+    });
+  }else{
 
-  //Valores obtidos do formulario
-  var _qtd_passageiros = req.body.qtd_passageiros;
-  var _origem = req.body.combo_trecho_ida[0];
-  var _destino = req.body.combo_trecho_volta[0];
-  var valor_ticket = util.calc_valores(_origem, _destino, _qtd_passageiros);
-  var horario_destino = util.tempo_transfer(req.body.horario_origem[0], _origem, _destino);
-  var contratacao = req.body.rd_trecho == 'volta' ? contratacao = 'full' : contratacao = 'ida';
+    var cod_check = util.gerar_string_alfanumerica(8);
+    var data_solicitacao = moment().format('DD-MM-YYYY');
+    var status_ticket = false;
 
-  var ticket = {
-    cod_checkin: cod_check,
-    nome_cliente: req.body.nome_cliente,
-    email_cliente: req.body.email_cliente,
-    contratacao: contratacao,
+    //Valores obtidos do formulario
+    var _qtd_passageiros = req.body.qtd_passageiros;
+    var _origem = req.body.combo_trecho_ida[0];
+    var _destino = req.body.combo_trecho_volta[0];
+    var valor_ticket = util.calc_valores(_origem, _destino, _qtd_passageiros);
+    var horario_destino = util.tempo_transfer(req.body.horario_origem[0], _origem, _destino);
+    var contratacao = req.body.rd_trecho == 'volta' ? contratacao = 'full' : contratacao = 'ida';
 
-    data_check: req.body.data_check_ida[0],
-    origem: _origem,
-    destino: _destino,
-    horario_origem: req.body.horario_origem,
-    horario_destino: horario_destino,
+    var ticket = {
+      cod_checkin: cod_check,
+      nome_cliente: req.body.nome_cliente,
+      email_cliente: req.body.email_cliente,
+      contratacao: contratacao,
 
-    qtd_passageiros: _qtd_passageiros,
-    data_solicitacao: data_solicitacao,
-    valor_ticket: valor_ticket,
-    status_ticket: status_ticket,
-    observacoes: req.body.observacoes
-  };
+      data_check: req.body.data_check_ida[0],
+      origem: _origem,
+      destino: _destino,
+      horario_origem: req.body.horario_origem,
+      horario_destino: horario_destino,
 
-  //  Regra de exceÃ§Ãµes
+      qtd_passageiros: _qtd_passageiros,
+      data_solicitacao: data_solicitacao,
+      valor_ticket: valor_ticket,
+      status_ticket: status_ticket,
+      observacoes: req.body.observacoes
+    };
+
+  }
+
+
+
+
+  //  Regra de exceções
   if (!ticket.origem || !ticket.destino || !ticket.origem && !ticket.destino) {
     var html_cotacao = texts.cotacao_sem_trechos(ticket);
     email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);

@@ -12,6 +12,7 @@ module.exports.orcamento = function(req, callback) {
     parser_json.tratamento(req, function(result){
       ticket = result;
     });
+    
   }else{
 
     var cod_check = util.gerar_string_alfanumerica(8);

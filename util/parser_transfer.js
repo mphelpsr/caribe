@@ -1,4 +1,5 @@
 var util = require('../util/funcoes.js');
+var moment = require('moment');
 
 module.exports.tratamento = function(req, callback){
 
@@ -19,5 +20,6 @@ module.exports.tratamento = function(req, callback){
     status_ticket: false,
     observacoes: req.body.observacoes
   };
+  callback(json);
 
 }

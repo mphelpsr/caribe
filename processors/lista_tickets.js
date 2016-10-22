@@ -1,9 +1,10 @@
 var bd = require('../config/fct_mongo.js');
 var Cliente = require('../models/Cliente.js')();
+var config = require("../config/cfg_mongo.json");
 
 module.exports.lista_todos = function(callback) {
 
-  bd.listDocuments(function(err, result) {
+  bd.listDocuments(config.db_collection_tickets, function(err, result) {
     if (err) {
       callback(err, 500);
     }
@@ -14,7 +15,7 @@ module.exports.lista_todos = function(callback) {
 
 module.exports.lista_um = function(cod_checkin, callback) {
 
-  bd.searchDocuments(cod_checkin, function(err, result) {
+  bd.searchDocuments(config.db_collection_tickets, cod_checkin, function(err, result) {
     if (err) {
       callback(err, 500);
 

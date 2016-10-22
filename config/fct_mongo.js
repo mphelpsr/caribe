@@ -11,22 +11,22 @@ self.DB = "";
 /*
  * Recupera conexão com BD
  */
-self.getCollection = function(callback) {
+self.getCollection = function(_collection, callback) {
 
-  self.DB = mongojs(self.URL, [self.COLLECTION]);
+  self.DB = mongojs(self.URL, [_collection]);
   self.DB.on('error', function(err) {
     console.log('error', error);
   });
 
-  callback(self.DB.collection(self.COLLECTION));
+  callback(self.DB.collection(_collection));
 };
 
 /*
  * Insere documentos no BD
  */
-module.exports.insertDocument = function(file, callback) {
+module.exports.insertDocument = function(_collection, file, callback) {
 
-  self.getCollection(function(collection) {
+  self.getCollection(_collection, function(collection) {
     collection.insert({
         ticket: file
       },
@@ -45,9 +45,9 @@ module.exports.insertDocument = function(file, callback) {
 /*
  * Lista documentos
  */
-module.exports.listDocuments = function(callback) {
+module.exports.listDocuments = function(_collection, callback) {
 
-  self.getCollection(function(collection) {
+  self.getCollection(_collection, function(collection) {
 
     collection.find().toArray(function(err, result) {
 
@@ -71,9 +71,9 @@ module.exports.listDocuments = function(callback) {
 /*
  * Pesquisa de documentos
  */
-module.exports.searchDocuments = function(id, callback) {
+module.exports.searchDocuments = function(_collection, id, callback) {
 
-  self.getCollection(function(collection) {
+  self.getCollection(_collection, function(collection) {
 
     collection.findOne({
       'ticket.cod_checkin': id

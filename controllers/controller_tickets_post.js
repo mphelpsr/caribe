@@ -3,9 +3,10 @@ var ida_volta = require('../processors/ida_volta.js');
 
 module.exports.executa = function(req, callback){
 
-  var contratacao = req.body.rd_trecho == 'volta' ? contratacao = 'full' : contratacao = 'ida';
+  //var contratacao = req.body.rd_trecho == 'volta' ? contratacao = 'full' : contratacao = 'ida';
+  var tipo_contratacao = req.body.rd_trecho == 'volta' ? tipo_contratacao = 'full' : tipo_contratacao = 'ida';
 
-  switch (contratacao) {
+  switch (tipo_contratacao) {
     case 'ida':
 
       ida.orcamento(req, function(err, result) {

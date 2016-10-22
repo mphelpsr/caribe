@@ -13,10 +13,13 @@ module.exports.gerar_string_alfanumerica = function(tam) {
 
 module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
   var passageiros = parseInt(qtd_passageiros);
+  origem = origem.toUpperCase();
+  destino = destino.toUpperCase();
+
   switch (origem) {
-    case 'Recife':
+    case 'RECIFE':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           if (passageiros == 1 || passageiros == 2) {
             return 190.00;
           } else if (passageiros == 3) {
@@ -25,7 +28,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 230.00;
           }
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           if (passageiros == 1 || passageiros == 2) {
             return 330.00;
           } else if (passageiros == 3) {
@@ -34,7 +37,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 380.00;
           }
 
-        case 'Porto de Galinhas':
+        case 'PORTO DE GALINHAS':
           if (passageiros == 1 || passageiros == 2) {
             return 180.00;
           } else if (passageiros == 3) {
@@ -43,7 +46,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 220.00;
           }
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           if (passageiros == 1 || passageiros == 2) {
             return 230.00;
           } else if (passageiros == 3) {
@@ -52,7 +55,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 280.00;
           }
 
-        case 'Maceio':
+        case 'MACEIO':
           if (passageiros == 1 || passageiros == 2) {
             return 360.00;
           } else if (passageiros == 3) {
@@ -64,9 +67,9 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       }
       break;
 
-    case 'Maceio':
+    case 'MACEIO':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           if (passageiros == 1 || passageiros == 2) {
             return 190.00;
           } else if (passageiros == 3) {
@@ -75,7 +78,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 230.00;
           }
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           if (passageiros == 1 || passageiros == 2) {
             return 200.00;
           } else if (passageiros == 3) {
@@ -84,7 +87,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 240.00;
           }
 
-        case 'Porto de Galinhas':
+        case 'PORTO DE GALINHAS':
           if (passageiros == 1 || passageiros == 2) {
             return 330.00;
           } else if (passageiros == 3) {
@@ -93,7 +96,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 370.00;
           }
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           if (passageiros == 1 || passageiros == 2) {
             return 180.00;
           } else if (passageiros == 3) {
@@ -102,7 +105,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 220.00;
           }
 
-        case 'Recife':
+        case 'RECIFE':
           if (passageiros == 1 || passageiros == 2) {
             return 360.00;
           } else if (passageiros == 3) {
@@ -114,9 +117,9 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       }
       break;
 
-    case 'Maragogi':
+    case 'MARAGOGI':
       switch (destino) {
-        case 'Recife':
+        case 'RECIFE':
           if (passageiros == 1 || passageiros == 2) {
             return 190.00;
           } else if (passageiros == 3) {
@@ -125,7 +128,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 230.00;
           }
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           if (passageiros == 1 || passageiros == 2) {
             return 160.00;
           } else if (passageiros == 3) {
@@ -134,7 +137,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 200.00;
           }
 
-        case 'Porto de Galinhas':
+        case 'PORTO DE GALINHAS':
           if (passageiros == 1 || passageiros == 2) {
             return 150.00;
           } else if (passageiros == 3) {
@@ -143,7 +146,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 190.00;
           }
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           if (passageiros == 1 || passageiros == 2) {
             return 50.00;
           } else if (passageiros == 3) {
@@ -152,7 +155,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 90.00;
           }
 
-        case 'Maceio':
+        case 'MACEIO':
           if (passageiros == 1 || passageiros == 2) {
             return 190.00;
           } else if (passageiros == 3) {
@@ -164,9 +167,9 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       }
       break;
 
-    case 'Sao M dos Milagres':
+    case 'SAO M DOS MILAGRES':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           if (passageiros == 1 || passageiros == 2) {
             return 160.00;
           } else if (passageiros == 3) {
@@ -175,7 +178,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 200.00;
           }
 
-        case 'Recife':
+        case 'RECIFE':
           if (passageiros == 1 || passageiros == 2) {
             return 330.00;
           } else if (passageiros == 3) {
@@ -184,7 +187,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 370.00;
           }
 
-        case 'Porto de Galinhas':
+        case 'PORTO DE GALINHAS':
           if (passageiros == 1 || passageiros == 2) {
             return 230.00;
           } else if (passageiros == 3) {
@@ -193,7 +196,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 270.00;
           }
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           if (passageiros == 1 || passageiros == 2) {
             return 150.00;
           } else if (passageiros == 3) {
@@ -202,7 +205,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 1.00;
           }
 
-        case 'Maceio':
+        case 'MACEIO':
           if (passageiros == 1 || passageiros == 2) {
             return 200.00;
           } else if (passageiros == 3) {
@@ -214,9 +217,9 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       }
       break;
 
-    case 'Porto de Galinhas':
+    case 'PORTO DE GALINHAS':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           if (passageiros == 1 || passageiros == 2) {
             return 150.00;
           } else if (passageiros == 3) {
@@ -225,7 +228,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 190.00;
           }
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           if (passageiros == 1 || passageiros == 2) {
             return 230.00;
           } else if (passageiros == 3) {
@@ -234,7 +237,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 270.00;
           }
 
-        case 'Recife':
+        case 'RECIFE':
           if (passageiros == 1 || passageiros == 2) {
             return 180.00;
           } else if (passageiros == 3) {
@@ -243,7 +246,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 220.00;
           }
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           if (passageiros == 1 || passageiros == 2) {
             return 180.00;
           } else if (passageiros == 3) {
@@ -252,7 +255,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 220.00;
           }
 
-        case 'Maceio':
+        case 'MACEIO':
           if (passageiros == 1 || passageiros == 2) {
             return 330.00;
           } else if (passageiros == 3) {
@@ -264,9 +267,9 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
       }
       break;
 
-    case 'Japaratinga':
+    case 'JAPARATINGA':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           if (passageiros == 1 || passageiros == 2) {
             return 50.00;
           } else if (passageiros == 3) {
@@ -275,7 +278,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 90.00;
           }
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           if (passageiros == 1 || passageiros == 2) {
             return 150.00;
           } else if (passageiros == 3) {
@@ -284,7 +287,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 190.00;
           }
 
-        case 'Porto de Galinhas':
+        case 'PORTO DE GALINHAS':
           if (passageiros == 1 || passageiros == 2) {
             return 180.00;
           } else if (passageiros == 3) {
@@ -293,7 +296,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 220.00;
           }
 
-        case 'Recife':
+        case 'RECIFE':
           if (passageiros == 1 || passageiros == 2) {
             return 230.00;
           } else if (passageiros == 3) {
@@ -302,7 +305,7 @@ module.exports.calc_valores = function(origem, destino, qtd_passageiros) {
             return 270.00;
           }
 
-        case 'Maceio':
+        case 'MACEIO':
           if (passageiros == 1 || passageiros == 2) {
             return 180.00;
           } else if (passageiros == 3) {
@@ -390,20 +393,21 @@ function subtraiHora(hrA, hrB) {
 module.exports.tempo_transfer = function(horaInicio, origem, destino) {
   var _total = 0;
 
+
   switch (origem) {
-    case 'Recife':
+    case 'RECIFE':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
@@ -416,19 +420,19 @@ module.exports.tempo_transfer = function(horaInicio, origem, destino) {
       }
       break;
 
-    case 'Maceio':
+    case 'MACEIO':
       switch (destino) {
-        case 'Maragogi':
+        case 'MARAGOGI':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
 
-        case 'Sao M dos Milagres':
+        case 'SAO M DOS MILAGRES':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;
@@ -441,19 +445,19 @@ module.exports.tempo_transfer = function(horaInicio, origem, destino) {
       }
       break;
 
-    case 'Maragogi':
+    case 'MARAGOGI':
       switch (destino) {
-        case 'Recife':
+        case 'RECIFE':
           var _total = subtraiHora(horaInicio, '04:00');
           return _total;
           break;
 
-        case 'Maceio':
+        case 'MACEIO':
           var _total = somaHora(horaInicio, '04:00');
           return _total;
           break;
 
-        case 'Japaratinga':
+        case 'JAPARATINGA':
           var _total = somaHora(horaInicio, '02:00', true);
           return _total;
           break;

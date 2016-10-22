@@ -2,9 +2,9 @@ var util = require('../util/funcoes.js');
 var moment = require('moment');
 
 module.exports.tratamento = function(req, callback){
-  var tipo_transfer = req.body.rd_trecho == 'volta' ? contratacao = 'full' : contratacao = 'ida';
+  var tipo_contratacao = req.body.destino_volta ? tipo_contratacao = 'full' : tipo_contratacao = 'ida';
 
-  if(tipo_transfer == 'ida'){
+  if(tipo_contratacao == 'ida'){
     var json = {
       cod_checkin: util.gerar_string_alfanumerica(8),
       nome_cliente: req.body.nome_cliente,
@@ -24,20 +24,13 @@ module.exports.tratamento = function(req, callback){
     };
 
   }else{
-    
-    //Valores obtidos do formulario
-    var _qtd_passageiros = req.body.qtd_passageiros;
-    var _origem_ida = req.body.combo_trecho_ida[1];
-    var _destino_ida = req.body.combo_trecho_ida[2];
-    var _origem_volta = req.body.combo_trecho_volta[1];
-    var _destino_volta = req.body.combo_trecho_volta[2];
 
     var valor_ticket_ida = util.calc_valores(req.body.origem_ida, req.body.destino_ida, req.body.qtd_passageiros);
     var valor_ticket_volta = util.calc_valores(req.body.origem_volta, req.body.destino_volta, req.body.qtd_passageiros);
-    var horario_destino_ida = util.tempo_transfer(req.body.horario_origem[1], req.body.origem_ida, req.body.destino_ida);
+    var horario_destino_ida = util.tempo_transfer(req.body.horario_origem, req.body.origem_ida, req.body.destino_ida);
     var horario_destino_volta = util.tempo_transfer(req.body.horario_volta, req.body.origem_volta, req.body.destino_volta);
 
-    var ticket = {
+    var json = {
       cod_checkin: util.gerar_string_alfanumerica(8),
       nome_cliente: req.body.nome_cliente,
       email_cliente: req.body.email_cliente,

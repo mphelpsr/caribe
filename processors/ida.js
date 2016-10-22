@@ -5,6 +5,7 @@ var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
 var parser_json = require('../util/parser_transfer.js');
+var config = require("../config/cfg_mongo.json");
 
 module.exports.orcamento = function(req, callback) {
 
@@ -12,7 +13,7 @@ module.exports.orcamento = function(req, callback) {
     parser_json.tratamento(req, function(result){
       ticket = result;
     });
-    
+
   }else{
 
     var cod_check = util.gerar_string_alfanumerica(8);
@@ -51,7 +52,7 @@ module.exports.orcamento = function(req, callback) {
 
 
 
-  //  Regra de exceções
+  //  Regra de exceï¿½ï¿½es
   if (!ticket.origem || !ticket.destino || !ticket.origem && !ticket.destino) {
     var html_cotacao = texts.cotacao_sem_trechos(ticket);
     email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, cod_check);
@@ -74,7 +75,7 @@ module.exports.orcamento = function(req, callback) {
 
   } else {
 
-    bd.insertDocument(ticket, function(err, result) {
+    bd.insertDocument(config.db_collection_tickets, ticket, function(err, result) {
       if (err) {
         callback(err, 500);
       }

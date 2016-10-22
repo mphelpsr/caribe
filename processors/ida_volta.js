@@ -4,6 +4,7 @@ var email = require('../config/fct_email.js');
 var config = require("../config/cfg_email.json");
 var util = require('../util/funcoes.js');
 var moment = require('moment');
+var config = require("../config/cfg_mongo.json");
 
 module.exports.orcamento = function(req, callback) {
 
@@ -70,7 +71,7 @@ module.exports.orcamento = function(req, callback) {
     callback(null, 422);
 
   } else {
-    bd.insertDocument(ticket, function(err, result) {
+    bd.insertDocument(config.db_collection_tickets, ticket, function(err, result) {
       if (err) {
         callback(err, 500);
       }

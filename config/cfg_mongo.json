@@ -1,5 +1,8 @@
 {
   "db_url": "caribenordesti01:marcelo1987@mongodb.caribenordestino.kinghost.net/caribenordesti01",
   "db_base": "caribenordesti01",
-  "db_collection_tickets": "tickets"
+  "db_collection_tickets": "tickets",
+  "db_collection_trechos": "trechos",
+  "query_tickets_id": "cod_checkin",
+  "query_cidades_id": "municipio"
 }

@@ -1,4 +1,7 @@
 var texts = require('./strings.js');
+var bd = require('../config/fct_mongo.js');
+var config = require("../config/cfg_mongo.json");
+var async = require('async');
 
 /* Geracao codigo aleatorio */
 module.exports.gerar_string_alfanumerica = function(tam) {
@@ -473,3 +476,43 @@ module.exports.tempo_transfer = function(horaInicio, origem, destino) {
   }
   return _total;
 }
+
+module.exports.trecho_cotacao = function(origem, destino) {
+  //Definicao abreviacao trecho
+  var trecho = '';
+
+  if (origem == 'recife' || destino == 'recife') {
+    trecho += 'rec'
+  }
+
+  if (origem == 'maragogi' || destino == 'maragogi') {
+    trecho += 'mgi'
+  }
+
+  return trecho;
+}
+
+module.exports.calcula_valores = function(origem, destino, passageiros, callback) {
+
+  bd.searchTransfers(config.db_collection_trechos, origem, destino, function(err, result) {
+    if (err) {
+      callback(err, 500);
+
+    } else if (result) {
+
+      if (passageiros == 3) {
+        result += 20;
+
+      } else if(passageiros == 4) {
+        result += 40;
+      }
+
+      callback(null, result);
+
+    } else {
+      callback(null, 0); // TODO: tratar erro
+    }
+
+  });
+
+};

@@ -11,11 +11,13 @@ var controller_tickets_get = require('./controllers/controller_tickets_get.js');
 var controller_tickets_post = require('./controllers/controller_tickets_post.js');
 var controller_tickets_get_cod_checkin = require('./controllers/controller_tickets--cod-checkin_get.js');
 var controller_infos_post = require('./controllers/controller_infos_post.js');
+var controller_trechos_get = require('./controllers/controller_trechos_get.js');
+var controller_trechos_calculo_valor_get = require('./controllers/controller_trechos_calculo_valor_get.js');
 /* Fim - Controladores */
 
 var port = 21087;
 var application_root = __dirname;
-var app = express(); 
+var app = express();
 
 app.use(express.static(application_root));
 app.use(cookieParser('caribe_tickets'));
@@ -40,6 +42,22 @@ app.use(function(req, res, next) {
 app.route("/")
   .post(function(req, res) {
     res.json(res.status);
+  });
+
+//Listagem de trechos
+app.route("/trechos/")
+  .get(function(req, res) {
+    controller_trechos_get.executa(function(result) {
+      res.json(result);
+    });
+  });
+
+//Calculo dos trechos
+app.route("/trechos/:origem/:destino/:qtd_passageiros")
+  .get(function(req, res) {
+    controller_trechos_calculo_valor_get.executa(req, function(result) {
+      res.json(result);
+    });
   });
 
 //Envio e-mail de duvidas para consultor

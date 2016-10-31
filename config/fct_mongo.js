@@ -2,6 +2,7 @@ var mongojs = require("mongojs");
 var config = require("./cfg_mongo.json");
 var assert = require('assert');
 var self = this;
+var util = require("../util/funcoes.js");
 
 self.COLLECTION = config.db_collection_tickets;
 self.URL = config.db_url;
@@ -15,7 +16,7 @@ self.getCollection = function(_collection, callback) {
 
   self.DB = mongojs(self.URL, [_collection]);
   self.DB.on('error', function(err) {
-    console.log('error', error);
+    console.log('error', err);
   });
 
   callback(self.DB.collection(_collection));
@@ -41,9 +42,8 @@ module.exports.insertDocument = function(_collection, file, callback) {
   });
 };
 
-
 /*
- * Lista documentos
+ * Lista todos os trechos
  */
 module.exports.listDocuments = function(_collection, callback) {
 
@@ -52,16 +52,12 @@ module.exports.listDocuments = function(_collection, callback) {
     collection.find().toArray(function(err, result) {
 
       if (err) {
-        console.log('error', error);
+        console.log('error', err);
         callback(err, null);
       }
 
-      var _res = [];
-      for (var i = 0; i < result.length; i++) {
-        _res.push(result[i].ticket.cod_checkin + ' - ' + result[i].ticket.nome_cliente);
-      }
-      console.log('Tickets listados.');
-      callback(null, _res);
+      console.log('Documentos listados.');
+      callback(null, result);
     });
 
   });
@@ -69,9 +65,9 @@ module.exports.listDocuments = function(_collection, callback) {
 };
 
 /*
- * Pesquisa de documentos
+ * Pesquisa de tickets
  */
-module.exports.searchDocuments = function(_collection, id, callback) {
+module.exports.searchTickets = function(_collection, id, callback) {
 
   self.getCollection(_collection, function(collection) {
 
@@ -79,10 +75,35 @@ module.exports.searchDocuments = function(_collection, id, callback) {
       'ticket.cod_checkin': id
     }, function(err, result) {
       if (err) {
-        console.log('error', error);
+        console.log('error', err);
         callback(err, null);
       }
       callback(null, result);
+
+    });
+
+  });
+
+};
+
+
+/*
+ * Pesquisa de municipios
+ */
+module.exports.searchTransfers = function(_collection, _origem, _destino, callback) {
+
+  self.getCollection(_collection, function(collection) {
+
+    collection.findOne({
+      '_id': _origem + _destino
+    }, function(err, result) {
+
+      if (err) {
+        console.log('error', err);
+        callback(err, null);
+      }
+
+      callback(null, parseInt(result.valor));
 
     });
 

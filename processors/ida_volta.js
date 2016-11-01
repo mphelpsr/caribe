@@ -55,7 +55,7 @@ module.exports.orcamento = function(req, callback) {
           //Inicio - Cotacao completa
         } else {
           //E-mail para consultores
-          if (ticket.observacoes != '') {
+          if (ticket.observacoes) {
             var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
             _txt += '<p/>' + ticket.observacoes;
             email.send(config.mail_info, 'Observacao - ' + texts.sub_cotacao, '', _txt, ticket.cod_checkin);

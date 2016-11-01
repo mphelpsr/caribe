@@ -13,17 +13,17 @@ module.exports.orcamento = function(req, callback) {
     ticket = result;
 
     //  Regra de excecoes
-    if (!ticket.origem || !ticket.destino || !ticket.origem && !ticket.destino) {
+    if (!ticket.origem_ida || !ticket.destino_ida || !ticket.origem_ida && !ticket.destino_ida) {
       var html_cotacao = texts.cotacao_sem_trechos(ticket);
       email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, ticket.cod_checkin);
       callback(null, 422);
 
-    } else if (ticket.origem == '------' || ticket.destino == '------') {
+    } else if (ticket.origem_ida == '------' || ticket.destino_ida == '------') {
       var html_cotacao = texts.cotacao_sem_trechos(ticket);
       email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, ticket.cod_checkin);
       callback(null, 422);
 
-    } else if (ticket.origem == ticket.destino) {
+    } else if (ticket.origem_ida == ticket.destino_ida) {
       var html_cotacao = texts.cotacao_trecho_indisponivel(ticket);
       email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, ticket.cod_checkin);
       callback(null, 422);
@@ -42,7 +42,7 @@ module.exports.orcamento = function(req, callback) {
 
         var html_cotacao = texts.cotacao(ticket);
 
-        if (ticket.data_check == '') {
+        if (ticket.data_check_ida == '') {
 
           var html_cotacao_info = texts.cotacao_informativa(ticket);
 
@@ -58,7 +58,7 @@ module.exports.orcamento = function(req, callback) {
 
         } else {
           //E-mail para consultores
-          if (ticket.observacoes != '') {
+          if (ticket.observacoes) {
             var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
             _txt += '<p/>' + ticket.observacoes;
             email.send(config.mail_info, 'Observacao - ' + texts.sub_cotacao, '', _txt, ticket.cod_checkin);

@@ -9,7 +9,7 @@ module.exports.tratamento = function(req, callback) {
 
   if (tipo_contratacao == 'ida') {
 
-    calculo_trecho.valores(req.body.origem, req.body.destino, req.body.qtd_passageiros, function(err, result) {
+    calculo_trecho.valores(req.body.origem_ida, req.body.destino_ida, req.body.qtd_passageiros, function(err, result) {
       if (err) {
         callback(err)
       }

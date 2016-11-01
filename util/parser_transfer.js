@@ -20,9 +20,9 @@ module.exports.tratamento = function(req, callback) {
         email_cliente: req.body.email_cliente,
         contratacao: req.body.contratacao,
 
-        data_check: req.body.data_check,
-        origem: req.body.origem,
-        destino: req.body.destino,
+        data_check_ida: req.body.data_check_ida,
+        origem_ida: req.body.origem_ida,
+        destino_ida: req.body.destino_ida,
 
         valor_ticket: result,
         qtd_passageiros: req.body.qtd_passageiros,
@@ -90,7 +90,7 @@ module.exports.tratamento = function(req, callback) {
         status_ticket: false,
         observacoes: req.body.observacoes
       }
-      
+
       callback(json);
 
     });

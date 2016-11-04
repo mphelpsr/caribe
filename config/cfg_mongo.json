@@ -3,6 +3,7 @@
   "db_base": "caribenordesti01",
   "db_collection_tickets": "tickets",
   "db_collection_trechos": "trechos",
+  "db_collection_cidades": "cidades",
   "query_tickets_id": "cod_checkin",
   "query_cidades_id": "municipio"
 }

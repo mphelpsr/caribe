@@ -8,8 +8,3 @@ module.exports.solicitacao = function(req, callback) {
   callback(200);
 };
 
-/*
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO551dWWZrv_bJDsF-Lebtg1IDYCI3Vp0&callback=initMap"
-type="text/javascript"></script>
-*
-*/

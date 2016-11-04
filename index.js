@@ -13,6 +13,11 @@ var controller_tickets_get_cod_checkin = require('./controllers/controller_ticke
 var controller_infos_post = require('./controllers/controller_infos_post.js');
 var controller_trechos_get = require('./controllers/controller_trechos_get.js');
 var controller_trechos_calculo_valor_get = require('./controllers/controller_trechos_calculo_valor_get.js');
+var controller_trechos_cidade_get = require('./controllers/controller_trechos--cidade_get.js');
+var controller_trechos_post = require('./controllers/controller_trechos_post.js');
+var controller_cidades_post = require('./controllers/controller_cidades_post.js');
+var controller_cidades_get = require('./controllers/controller_cidades_get.js');
+
 /* Fim - Controladores */
 
 var port = 21087;
@@ -44,10 +49,42 @@ app.route("/")
     res.json(res.status);
   });
 
+//Criacao de cidades
+app.route("/cidades/")
+  .post(function(req, res) {
+    controller_cidades_post.executa(req, function(result) {
+      res.json(result);
+    });
+  });
+
+//Listagem de cidades
+app.route("/cidades/")
+  .get(function(req, res) {
+    controller_cidades_get.executa(function(result) {
+      res.json(result);
+    });
+  });
+
 //Listagem de trechos
 app.route("/trechos/")
   .get(function(req, res) {
     controller_trechos_get.executa(function(result) {
+      res.json(result);
+    });
+  });
+
+//Criacao de trechos
+app.route("/trechos/")
+  .post(function(req, res) {
+    controller_trechos_post.executa(req, function(result) {
+      res.json(result);
+    });
+  });
+
+//Listagem de trechos de uma determinada cidade
+app.route("/trechos/:origem/:destino")
+  .get(function(req, res) {
+    controller_trechos_cidade_get.executa(req, function(result) {
       res.json(result);
     });
   });

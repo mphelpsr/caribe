@@ -23,9 +23,9 @@ self.getCollection = function(_collection, callback) {
 };
 
 /*
- * Insere documentos no BD
+ * Insere tickets
  */
-module.exports.insertDocument = function(_collection, file, callback) {
+module.exports.insertTicket = function(_collection, file, callback) {
 
   self.getCollection(_collection, function(collection) {
     collection.insert({
@@ -43,7 +43,48 @@ module.exports.insertDocument = function(_collection, file, callback) {
 };
 
 /*
- * Lista todos os trechos
+ * Insere trechos
+ */
+module.exports.insertTrechos = function(_collection, file, callback) {
+
+  self.getCollection(_collection, function(collection) {
+    collection.insert({
+        trecho: file
+      },
+      function(err, result) {
+        if (err) {
+          callback(err, null);
+          assert.equal(err, null);
+        }
+        console.log('Trecho inserido');
+        callback(null, result);
+      });
+  });
+};
+
+/*
+ * Insere cidades
+ */
+module.exports.insertCidades = function(_collection, file, callback) {
+
+  self.getCollection(_collection, function(collection) {
+    collection.insert({
+        cidade: file
+      },
+      function(err, result) {
+        if (err) {
+          callback(err, null);
+          assert.equal(err, null);
+        }
+        console.log('Cidade inserida');
+        callback(null, result);
+      });
+  });
+};
+
+
+/*
+ * Lista todos os documentos
  */
 module.exports.listDocuments = function(_collection, callback) {
 
@@ -88,14 +129,14 @@ module.exports.searchTickets = function(_collection, id, callback) {
 
 
 /*
- * Pesquisa de municipios
+ * Pesquisa de valor por trecho
  */
 module.exports.searchTransfers = function(_collection, _origem, _destino, callback) {
 
   self.getCollection(_collection, function(collection) {
 
     collection.findOne({
-      '_id': _origem + _destino
+      'trecho._id': _origem + _destino
     }, function(err, result) {
 
       if (err) {
@@ -103,10 +144,35 @@ module.exports.searchTransfers = function(_collection, _origem, _destino, callba
         callback(err, null);
       }
 
-      callback(null, parseInt(result.valor));
+      callback(null, parseInt(result.trecho.valor));
 
     });
 
   });
 
 };
+
+/*
+* Pesquisa de cidades por ID
+*/
+module.exports.listTrechos = function(_collection, _origem, _destino, callback) {
+
+  self.getCollection(_collection, function(collection) {
+
+    collection.findOne({
+      'trecho._id': _origem + _destino
+    }, function(err, result) {
+
+      if (err) {
+        console.log('error', err);
+        callback(err, null);
+      }
+
+      callback(null, result);
+
+    });
+
+  });
+
+};
+

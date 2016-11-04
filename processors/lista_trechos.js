@@ -11,3 +11,19 @@ module.exports.lista_todos = function(callback) {
   });
 
 };
+
+module.exports.lista_trecho = function(origem, destino, callback) {
+
+  bd.listTrechos(config.db_collection_trechos, origem, destino, function(err, result) {
+
+    if (err) {
+      callback(err, 500);
+
+    } 
+      callback(null, result);
+   
+
+  });
+
+};
+

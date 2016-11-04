@@ -35,7 +35,7 @@ module.exports.orcamento = function(req, callback) {
 
     } else {
 
-      bd.insertDocument(config.db_collection_tickets, ticket, function(err, result) {
+      bd.insertTicket(config.db_collection_tickets, ticket, function(err, result) {
         if (err) {
           callback(err, 500);
         }

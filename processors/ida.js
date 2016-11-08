@@ -46,7 +46,7 @@ module.exports.orcamento = function(req, callback) {
 
           var html_cotacao_info = texts.cotacao_informativa(ticket);
 
-          if (ticket.observacoes != '') {
+          if (ticket.observacoes) {
             var _txt = 'Cliente: ' + ticket.nome_cliente + ' - E-mail: ' + ticket.email_cliente;
             _txt += '<p/>' + ticket.observacoes;
 

@@ -144,8 +144,11 @@ module.exports.searchTransfers = function(_collection, _origem, _destino, callba
         callback(err, null);
       }
 
-      callback(null, parseInt(result.trecho.valor));
-
+      if(result == null){
+        callback(null, parseInt(0));  //Trecho não encontrado
+      }else{
+        callback(null, parseInt(result.trecho.valor));
+      }
     });
 
   });

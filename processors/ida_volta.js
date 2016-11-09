@@ -26,7 +26,7 @@ module.exports.orcamento = function(req, callback) {
     } else if (ticket.origem_ida == ticket.destino_ida || ticket.origem_volta == ticket.destino_volta) {
       var html_cotacao = texts.cotacao_trecho_indisponivel(ticket);
       email.send(ticket.email_cliente, texts.sub_cotacao, '', html_cotacao, ticket.cod_checkin);
-      callback(null, 422);
+      callback(null, 200);
 
     } else if (ticket.qtd_passageiros > 4) {
       var html_cotacao = texts.cotacao_qtd_indisponivel(ticket);

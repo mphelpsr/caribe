@@ -20,11 +20,12 @@ var controller_cidades_get = require('./controllers/controller_cidades_get.js');
 
 /* Fim - Controladores */
 
+
 var port = 21087;
 var application_root = __dirname;
 var app = express();
 
-app.use(express.static(application_root));
+app.use(express.static("public"));
 app.use(cookieParser('caribe_tickets'));
 app.use(expressSession({
   secret: 'caribe_kinghost',
@@ -57,7 +58,23 @@ app.route("/cidades/")
     });
   });
 
-//Listagem de cidades
+/**
+ * @api {get} /cidades Lista de cidades
+ * @apiGroup Caribe Tickets
+ *
+ * @apiSuccess {String} status Lista de todas as cidades cadastradas
+ * 
+ * @apiSuccessExample {json} Sucesso
+ *    HTTP/1.1 200 OK
+ *    {
+        "_id": "581b530d13085c16489fd843",
+        "cidade": {
+          "nome": "Recife",
+          "abreviacao": "rec"
+        }
+      }
+ *
+ */
 app.route("/cidades/")
   .get(function(req, res) {
     controller_cidades_get.executa(function(result) {
@@ -65,7 +82,23 @@ app.route("/cidades/")
     });
   });
 
-//Listagem de trechos
+/**
+ * @api {get} /trechos Lista de trechos
+ * @apiGroup Caribe Tickets
+ *
+ * @apiSuccess {String} status Lista de todos os trechos cadastrados
+ * 
+ * @apiSuccessExample {json} Sucesso
+ *    HTTP/1.1 200 OK
+      {
+          "_id": "581b389c3a55c958c86a38af",
+          "trecho": {
+            "_id": "recmgi",
+            "valor": "190"
+          }
+        }
+ *
+ */
 app.route("/trechos/")
   .get(function(req, res) {
     controller_trechos_get.executa(function(result) {

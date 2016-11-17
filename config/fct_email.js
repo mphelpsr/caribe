@@ -6,6 +6,10 @@ var smtpConfig = {
     host: config.mail_host,
     port: config.mail_port,
     secure: config.mail_security, // use SSL
+    requireTLS: true, //Force TLS
+    tls: {
+        rejectUnauthorized: false
+    },
     auth: {
         user: config.mail_uids.user,
         pass: config.mail_uids.pass

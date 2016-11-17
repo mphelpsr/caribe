@@ -1,9 +1,9 @@
 var express = require('express'),
-  bodyParser = require('body-parser'),
-  cookieParser = require('cookie-parser'),
-  expressSession = require('express-session'),
-  methodOverride = require('method-override'),
-  expressValidator = require('express-validator');
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    expressSession = require('express-session'),
+    methodOverride = require('method-override'),
+    expressValidator = require('express-validator');
 
 
 /* Inicio - Controladores */
@@ -28,68 +28,63 @@ var app = express();
 app.use(express.static("public"));
 app.use(cookieParser('caribe_tickets'));
 app.use(expressSession({
-  secret: 'caribe_kinghost',
-  resave: true,
-  saveUninitialized: true
+    secret: 'caribe_kinghost',
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(methodOverride('_method'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 app.use(expressValidator());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 /* Inicio rotas */
 app.route("/")
-  .post(function(req, res) {
-    res.json(res.status);
-  });
-
-//Criacao de cidades
-app.route("/cidades/")
-  .post(function(req, res) {
-    controller_cidades_post.executa(req, function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        res.json(res.status);
     });
-  });
 
 /**
  * @api {get} /cidades Lista de cidades
- * @apiGroup Caribe Tickets
+ * @apiGroup eTickets
  *
  * @apiSuccess {String} status Lista de todas as cidades cadastradas
  * 
  * @apiSuccessExample {json} Sucesso
- *    HTTP/1.1 200 OK
- *    {
-        "_id": "581b530d13085c16489fd843",
-        "cidade": {
-          "nome": "Recife",
-          "abreviacao": "rec"
+    HTTP/1.1 200 OK
+    [
+        {
+            "_id": "581b530d13085c16489fd843",
+            "cidade": {
+                "nome": "Recife",
+                "abreviacao": "rec"
+            }
         }
-      }
+    ]
  *
  */
 app.route("/cidades/")
-  .get(function(req, res) {
-    controller_cidades_get.executa(function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        controller_cidades_get.executa(function(result) {
+            res.json(result);
+        });
     });
-  });
 
 /**
  * @api {get} /trechos Lista de trechos
- * @apiGroup Caribe Tickets
+ * @apiGroup eTickets
  *
  * @apiSuccess {String} status Lista de todos os trechos cadastrados
  * 
  * @apiSuccessExample {json} Sucesso
- *    HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
+    [
       {
           "_id": "581b389c3a55c958c86a38af",
           "trecho": {
@@ -97,73 +92,262 @@ app.route("/cidades/")
             "valor": "190"
           }
         }
+    ]
  *
  */
 app.route("/trechos/")
-  .get(function(req, res) {
-    controller_trechos_get.executa(function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        controller_trechos_get.executa(function(result) {
+            res.json(result);
+        });
     });
-  });
 
-//Criacao de trechos
-app.route("/trechos/")
-  .post(function(req, res) {
-    controller_trechos_post.executa(req, function(result) {
-      res.json(result);
-    });
-  });
-
-//Listagem de trechos de uma determinada cidade
+/**
+ * @api {get} /trechos/:origem/:destino Informacoes do trecho
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Retorna as informacoes de um determinado trecho, de acordo com as cidades cadastradas
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            "_id": "581b389c3a55c958c86a38af",
+            "trecho": {
+                "_id": "recmgi",
+                "valor": "190"
+            }
+        }
+ *
+ */
 app.route("/trechos/:origem/:destino")
-  .get(function(req, res) {
-    controller_trechos_cidade_get.executa(req, function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        controller_trechos_cidade_get.executa(req, function(result) {
+            res.json(result);
+        });
     });
-  });
 
-//Calculo dos trechos
+/**
+ * @api {get} /trechos/:origem/:destino/:qtd_passageiros Calculo do trecho
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Retorna o valor de um determinado trecho, de acordo com a quantidade de passageiros informada
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            190
+        }
+ *
+ */
 app.route("/trechos/:origem/:destino/:qtd_passageiros")
-  .get(function(req, res) {
-    controller_trechos_calculo_valor_get.executa(req, function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        controller_trechos_calculo_valor_get.executa(req, function(result) {
+            res.json(result);
+        });
     });
-  });
 
-//Envio e-mail de duvidas para consultor
-app.route("/infos/")
-  .post(function(req, res) {
-    controller_infos_post.executa(req, function(result) {
-      res.json(result);
-    });
-  });
-
-// Lista todos os tickets
+/**
+ * @api {get} /tickets Lista de tickets
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Lista de todos os tickets cadastrados
+ * 
+ * @apiSuccessExample {json} Sucesso
+    HTTP/1.1 200 OK
+    [
+      {
+        "_id": "57fa6160d862cd1dbeded08f",
+        "ticket": {
+            "cod_checkin": "FWO8ULK1",
+            "nome_cliente": "Fulano",
+            "email_cliente": "fulano@gmail.com",
+            "contratacao": "full",
+            "data_check_ida": "13-10-2016",
+            "origem_ida": "Maceio",
+            "destino_ida": "Maragogi",
+            "horario_origem_ida": "11:30",
+            "horario_destino_ida": "13:30",
+            "data_check_volta": "20-10-2016",
+            "origem_volta": "Maragogi",
+            "destino_volta": "Recife",
+            "horario_origem_volta": "12:35",
+            "horario_destino_volta": "08:35",
+            "qtd_passageiros": "2",
+            "data_solicitacao": "09-10-2016",
+            "valor_ticket": 360,
+            "status_ticket": false,
+            "observacoes": "Nada a observar"
+            }
+      }
+    ]
+ *
+ */
 app.route("/tickets/")
-  .get(function(req, res) {
-    controller_tickets_get.executa(function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        controller_tickets_get.executa(function(result) {
+            res.json(result);
+        });
     });
-  });
 
-// Encontrar um ticket
+/**
+ * @api {get} /tickets/:cod_checkin Encontra um ticket
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Pesquisa e lista um ticket se encontrado
+ * 
+ * @apiSuccessExample {json} Sucesso
+ *    HTTP/1.1 200 OK
+      {
+        "_id": "57fa6160d862cd1dbeded08f",
+        "ticket": {
+            "cod_checkin": "FWO8ULK1",
+            "nome_cliente": "Fulano",
+            "email_cliente": "fulano@gmail.com",
+            "contratacao": "full",
+            "data_check_ida": "13-10-2016",
+            "origem_ida": "Maceio",
+            "destino_ida": "Maragogi",
+            "horario_origem_ida": "11:30",
+            "horario_destino_ida": "13:30",
+            "data_check_volta": "20-10-2016",
+            "origem_volta": "Maragogi",
+            "destino_volta": "Recife",
+            "horario_origem_volta": "12:35",
+            "horario_destino_volta": "08:35",
+            "qtd_passageiros": "2",
+            "data_solicitacao": "09-10-2016",
+            "valor_ticket": 360,
+            "status_ticket": false,
+            "observacoes": "Nada a observar"
+            }
+      }
+ *
+ */
 app.route("/tickets/:cod_checkin")
-  .get(function(req, res) {
-    controller_tickets_get_cod_checkin.executa(req, function(result) {
-      res.json(result);
+    .get(function(req, res) {
+        controller_tickets_get_cod_checkin.executa(req, function(result) {
+            res.json(result);
+        });
     });
-  });
 
-// Criação de tickets - IDA ou VOLTA
+/**
+ * @api {post} /tickets Criacao de ticket
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Cadastro de tickes
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            "nome_cliente":"Teste",
+            "email_cliente":"marcelo@caribenordestino.com.br",
+            
+            "contratacao":"ida",
+
+            "data_check":"22-12-2016",
+            "origem":"rec",
+            "destino":"mgi",
+
+            "qtd_passageiros":3,
+            "observacoes":""
+        }
+
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            "nome_cliente":"Teste",
+            "email_cliente":"marcelo@caribenordestino.com.br",
+            
+            "contratacao":"volta",
+            
+            "data_check_ida":"22-12-2016",
+            "origem_ida":"mcz",
+            "destino_ida":"smm",
+            
+            "data_check_volta":"22-12-2016",
+            "origem_volta":"smm",
+            "destino_volta":"mcz",
+            
+            "qtd_passageiros":3,
+            "observacoes":""   
+        }
+        
+ *
+ */
 app.route("/tickets")
-  .post(function(req, res) {
-    controller_tickets_post.executa(req, function(result) {
-      res.sendStatus(result);
+    .post(function(req, res) {
+        controller_tickets_post.executa(req, function(result) {
+            res.sendStatus(result);
+        });
     });
-  });
+
+/**
+ * @api {post} /infos Envio de e-mail
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Envia um e-mail para informacoes
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            "nome_cliente":"Teste",
+            "email_cliente":"marcelo@caribenordestino.com.br",
+            "mensagem": "Lorem ipsun" 
+        }
+ *
+ */
+app.route("/infos/")
+    .post(function(req, res) {
+        controller_infos_post.executa(req, function(result) {
+            res.json(result);
+        });
+    });
+
+/**
+ * @api {post} /trechos Criacao de trechos
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Cadastra um trecho de acordo com as cidades cadastradas
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            "_id": "jparec",
+            "valor": "230"
+        }
+ *
+ */
+app.route("/trechos/")
+    .post(function(req, res) {
+        controller_trechos_post.executa(req, function(result) {
+            res.json(result);
+        });
+    });
+
+/**
+ * @api {post} /cidades Criacao de cidades
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Cadastra uma cidade
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        {
+            "nome_cidade": "Sao M dos Milagres",
+            "abreviacao": "smm"
+        }
+ *
+ */
+app.route("/cidades/")
+    .post(function(req, res) {
+        controller_cidades_post.executa(req, function(result) {
+            res.json(result);
+        });
+    });
 
 /* Fim rotas */
 
 app.listen(port, function() {
-  console.log('Caribe no ar. Porta: ' + port);
+    console.log('Caribe no ar. Porta: ' + port);
 });

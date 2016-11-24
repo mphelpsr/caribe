@@ -1,11 +1,11 @@
 {
-    "mail_host": "smtp.nordeste.kinghost.net",
+    "mail_host": "smtp.caribenordestino.com.br",
     "mail_port": "587",
     "mail_security": false,
     "mail_uids": {
-        "user": "cotacao@nordeste.kinghost.net",
+        "user": "cotacao@caribenordestino.com.br",
         "pass": "verao2017"
     },
-    "mail_from": "Caribe Nordestino<info@nordeste.kinghost.net>",
-    "mail_info": "info@nordeste.kinghost.net"
+    "mail_from": "Caribe Nordestino<info@caribenordestino.com.br>",
+    "mail_info": "info@caribenordestino.com.br"
 }

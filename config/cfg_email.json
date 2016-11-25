@@ -1,10 +1,10 @@
 {
-    "mail_host": "smtp.caribenordestino.com.br",
+    "mail_host": "mail.caribenordestino.com.br",
     "mail_port": "587",
     "mail_security": false,
     "mail_uids": {
         "user": "cotacao@caribenordestino.com.br",
-        "pass": "verao2017"
+        "pass": "ver@o2017"
     },
     "mail_from": "Caribe Nordestino<info@caribenordestino.com.br>",
     "mail_info": "info@caribenordestino.com.br"

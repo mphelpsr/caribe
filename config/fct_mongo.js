@@ -36,7 +36,7 @@ module.exports.insertTicket = function(_collection, file, callback) {
           callback(err, null);
           assert.equal(err, null);
         }
-        console.log('Ticket inserido');
+        console.log('Ticket inserido. Data: ' + file.data_solicitacao);
         callback(null, result);
       });
   });

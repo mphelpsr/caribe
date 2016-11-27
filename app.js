@@ -17,6 +17,7 @@ var controller_trechos_cidade_get = require('./controllers/controller_trechos--c
 var controller_trechos_post = require('./controllers/controller_trechos_post.js');
 var controller_cidades_post = require('./controllers/controller_cidades_post.js');
 var controller_cidades_get = require('./controllers/controller_cidades_get.js');
+var controller_calendario_get = require('./controllers/controller_calendario_get.js');
 
 /* Fim - Controladores */
 
@@ -342,6 +343,13 @@ app.route("/trechos/")
 app.route("/cidades/")
     .post(function(req, res) {
         controller_cidades_post.executa(req, function(result) {
+            res.json(result);
+        });
+    });
+
+app.route("/calendario/")
+    .get(function(req, res) {
+        controller_calendario_get.executa(req, function(result) {
             res.json(result);
         });
     });

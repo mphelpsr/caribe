@@ -1,0 +1,13 @@
+{
+    "installed": {
+        "client_id": "233105125356-902cpa6l40a016sgao6ub3hvusq7254d.apps.googleusercontent.com",
+        "project_id": "caribe-nordestino",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://accounts.google.com/o/oauth2/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "oEo_y3RA_aK107UXS82fzyCx",
+        "redirect_uris": [
+            { "uri": "www.caribenordestino.com.br" }
+        ]
+    }
+}

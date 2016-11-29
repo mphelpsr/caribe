@@ -5,113 +5,64 @@ var googleAuth = require('google-auth-library');
 var fs = require('fs');
 var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 
-module.exports.lista_todos = function(callback) {
-
+module.exports.lista_todos = function(req, res, callback) {
     console.log(JSON.stringify(config));
 
+    var google = require('googleapis');
+    var OAuth2 = google.auth.OAuth2;
 
-    // Load client secrets from a local file.
-    authorize(config, listEvents);
+    var oauth2Client = new OAuth2(
+        config.web.client_id,
+        config.web.client_secret,
+        config.web.redirect_uris
+    );
 
-    /**
-     * Create an OAuth2 client with the given credentials, and then execute the
-     * given callback function.
-     *
-     * @param {Object} credentials The authorization client credentials.
-     * @param {function} callback The callback to call with the authorized client.
-     */
-    function authorize(credentials, callback) {
-        var clientSecret = credentials.installed.client_secret;
-        var clientId = credentials.installed.client_id;
-        var redirectUrl = credentials.installed.redirect_uris[0];
-        var auth = new googleAuth();
-        var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+    /* generate a url that asks permissions for Google+ and Google Calendar scopes */
 
-        // Check if we have previously stored a token.
-        fs.readFile('..config/cfg_google.json', function(err, token) {
+    var url = oauth2Client.generateAuthUrl({
+        // 'online' (default) or 'offline' (gets refresh_token)
+        access_type: 'offline',
+
+        // If you only need one scope you can pass it as string
+        scope: 'https://www.googleapis.com/auth/calendar'
+    });
+
+    res.redirect(url);
+}
+
+
+
+
+
+/*
+
+    //Nao apagar 
+    //code=4/qLt7Ad0z0Z6piymT1_GasQUhQc3u4F2fUT9i_xPTlTk#
+
+    function getAccessToken(oauth2Client, callback) {
+        var code = '4/qLt7Ad0z0Z6piymT1_GasQUhQc3u4F2fUT9i_xPTlTk#';
+        oauth2Client.getToken(code, function(err, tokens) {
             if (err) {
-                getNewToken(oauth2Client, callback);
-            } else {
-                oauth2Client.credentials = JSON.parse(token);
-                callback(oauth2Client);
+                return callback(err);
             }
+            // set tokens to the client
+            // TODO: tokens should be set by OAuth2 client.
+            oauth2Client.setCredentials(tokens);
+            callback();
         });
     }
 
-    /**
-     * Get and store new token after prompting for user authorization, and then
-     * execute the given callback with the authorized OAuth2 client.
-     *
-     * @param {google.auth.OAuth2} oauth2Client The OAuth2 client to get token for.
-     * @param {getEventsCallback} callback The callback to call with the authorized
-     *     client.
-     */
-    function getNewToken(oauth2Client, callback) {
-        var authUrl = oauth2Client.generateAuthUrl({
-            access_type: 'offline',
-            scope: SCOPES
-        });
-        console.log('Authorize this app by visiting this url: ', authUrl);
-        oauth2Client.getToken(code, function(err, token) {
+    // retrieve an access token
+    getAccessToken(oauth2Client, function() {
+        // retrieve user profile
+        plus.people.get({ userId: 'me', auth: oauth2Client }, function(err, profile) {
             if (err) {
-                console.log('Error while trying to retrieve access token', err);
-                return;
+                return console.log('An error occured', err);
             }
-            oauth2Client.credentials = token;
-            storeToken(token);
-            callback(oauth2Client);
+            console.log(profile.displayName, ':', profile.tagline);
         });
+    });
 
-    }
-
-    /**
-     * Store token to disk be used in later program executions.
-     *
-     * @param {Object} token The token to store to disk.
-     */
-    function storeToken(token) {
-        try {
-            fs.mkdirSync(TOKEN_DIR);
-        } catch (err) {
-            if (err.code != 'EEXIST') {
-                throw err;
-            }
-        }
-        fs.writeFile(TOKEN_PATH, JSON.stringify(token));
-        console.log('Token stored to ' + TOKEN_PATH);
-    }
-
-    /**
-     * Lists the next 10 events on the user's primary calendar.
-     *
-     * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
-     */
-    function listEvents(auth) {
-        var calendar = google.calendar('v3');
-        calendar.events.list({
-            auth: auth,
-            calendarId: 'primary',
-            timeMin: (new Date()).toISOString(),
-            maxResults: 10,
-            singleEvents: true,
-            orderBy: 'startTime'
-        }, function(err, response) {
-            if (err) {
-                console.log('The API returned an error: ' + err);
-                return;
-            }
-            var events = response.items;
-            if (events.length == 0) {
-                console.log('No upcoming events found.');
-            } else {
-                console.log('Upcoming 10 events:');
-                for (var i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    var start = event.start.dateTime || event.start.date;
-                    console.log('%s - %s', start, event.summary);
-                }
-            }
-        });
-    }
 
 };
+*/

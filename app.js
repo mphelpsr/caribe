@@ -348,8 +348,8 @@ app.route("/cidades/")
     });
 
 app.route("/calendario/")
-    .get(function(req, res) {
-        controller_calendario_get.executa(req, function(result) {
+    .post(function(req, res) {
+        controller_calendario_get.executa(req, res, function(result) {
             res.json(result);
         });
     });

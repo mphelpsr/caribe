@@ -22,6 +22,7 @@ Todos as bibliotecas necessárias estão listadas no arquivo package.json da apl
 #!json
 
 "dependencies": {
+    "apidoc": "^0.16.1",
     "assert": "^1.4.1",
     "async": "^2.0.1",
     "body-parser": "^1.15.0",
@@ -30,6 +31,9 @@ Todos as bibliotecas necessárias estão listadas no arquivo package.json da apl
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "express-validator": "~2.20.3",
+    "gapitoken": "^0.1.5",
+    "google-auth-library": "^0.9.10",
+    "googleapis": "^14.2.0",
     "method-override": "^2.3.5",
     "moment": "^2.12.0",
     "mongodb": "^2.2.10",

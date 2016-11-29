@@ -4,65 +4,71 @@ var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 var fs = require('fs');
 var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+var sample = require('../SampleClient');
 
-module.exports.lista_todos = function(req, res, callback) {
-    console.log(JSON.stringify(config));
+module.exports.lista_todos = function (req, res, callback) {
 
-    var google = require('googleapis');
     var OAuth2 = google.auth.OAuth2;
-
     var oauth2Client = new OAuth2(
         config.web.client_id,
         config.web.client_secret,
         config.web.redirect_uris
     );
 
-    /* generate a url that asks permissions for Google+ and Google Calendar scopes */
+    // set auth as a global default
+    /*
+    google.options({
+        auth: oauth2Client
+    });
+    */
 
-    var url = oauth2Client.generateAuthUrl({
-        // 'online' (default) or 'offline' (gets refresh_token)
-        access_type: 'offline',
-
-        // If you only need one scope you can pass it as string
-        scope: 'https://www.googleapis.com/auth/calendar'
+    // Retrieve tokens via token exchange explained above or set them:
+    oauth2Client.setCredentials({
+        access_token: config.web.access_token,
+        refresh_token: config.web.refresh_token
+        // Optional, provide an expiry_date (milliseconds since the Unix Epoch)
+        //expiry_date: (new Date()).getTime() + (1000 * 60 * 60 * 24 * 7)
     });
 
-    res.redirect(url);
-}
+    var startDate = '2016-10-01T00:00:00+10:00';
+    var maxDate = '2016-11-01T00:00:00+10:00';
 
-
-
-
-
-/*
-
-    //Nao apagar 
-    //code=4/qLt7Ad0z0Z6piymT1_GasQUhQc3u4F2fUT9i_xPTlTk#
-
-    function getAccessToken(oauth2Client, callback) {
-        var code = '4/qLt7Ad0z0Z6piymT1_GasQUhQc3u4F2fUT9i_xPTlTk#';
-        oauth2Client.getToken(code, function(err, tokens) {
-            if (err) {
-                return callback(err);
-            }
-            // set tokens to the client
-            // TODO: tokens should be set by OAuth2 client.
-            oauth2Client.setCredentials(tokens);
-            callback();
-        });
+    var params = {
+        'calendarId': config.web.calendarId,
+        "singleEvents": true,
+        "orderBy": "startTime",
+        "timeMin": startDate,
+        "timeMax": maxDate
     }
 
-    // retrieve an access token
-    getAccessToken(oauth2Client, function() {
-        // retrieve user profile
-        plus.people.get({ userId: 'me', auth: oauth2Client }, function(err, profile) {
-            if (err) {
-                return console.log('An error occured', err);
-            }
-            console.log(profile.displayName, ':', profile.tagline);
-        });
+
+    //Com oAuth2
+    /*
+     var calendar = google.calendar({
+        version: 'v3',
+        auth: oauth2Client
+    });
+
+    
+    calendar.events.list(params, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result);
+    });
+    */
+
+    // Com API_KEY
+    var calendar = google.calendar('v3');
+    var API_KEY = config.web.API_KEY;
+    calendar.events.list({
+        auth: API_KEY,
+        userId: 'calendar',
+        calendarId: config.web.calendarId
+    }, function (err, result) {
+        console.log('Result: ' + (err ? err.message : result));
     });
 
 
-};
-*/
+
+}

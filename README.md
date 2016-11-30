@@ -1,4 +1,4 @@
-# Caribe Tickets - Geração de tickets
+# eTickets - Geração de tickets
 
 Sistema de cotações de transfers utilizando Node.js, MongoDB e NodeMailer.
 

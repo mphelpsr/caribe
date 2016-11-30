@@ -6,7 +6,15 @@
         "token_uri": "https://accounts.google.com/o/oauth2/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_secret": "oEo_y3RA_aK107UXS82fzyCx",
-        "redirect_uris": ["http://www.caribenordestino.com.br/oauth2callback"],
-        "javascript_origins": ["http://www.caribenordestino.com.br"]
+        "redirect_uris": [
+            "http://www.caribenordestino.com.br/oauth2callback"
+        ],
+        "javascript_origins": [
+            "http://www.caribenordestino.com.br"
+        ],
+        "refresh_token": "1/r3GKrx7lGsjU-phXLNbhSmCjdTPXyJhbshtJdhS0lNQ",
+        "access_token": "ya29.Ci-lAwN1NLZb43EG7nMAgG0ie44Chc7FW3ZRTv0bmYHF4WKbfvgD4bRF8g3szWpmyg",
+        "calendarId": "ornv94e5ucmlmrvas8tvnviecc@group.calendar.google.com",
+        "API_KEY": "AIzaSyBO551dWWZrv_bJDsF-Lebtg1IDYCI3Vp0"
     }
 }

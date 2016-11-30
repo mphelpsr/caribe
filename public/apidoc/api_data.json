@@ -181,6 +181,36 @@
   },
   {
     "type": "post",
+    "url": "/calendario/:data_inicio/:data_fim",
+    "title": "Lista de eventos",
+    "group": "eTickets",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Cadastra uma cidade</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Sucesso",
+          "content": "HTTP/1.1 200 OK\n[\n    {\n        \"kind\": \"calendar#event\",\n        \"etag\": \"\\\"2945569021912000\\\"\",\n        \"id\": \"n7fiitlpth16k67cs18bs6ucf8\",\n        \"status\": \"confirmed\",\n        \"htmlLink\": \"https://www.google.com/calendar/event?eid=bjdmaWl0bHB0aDE2azY3Y3MxOGJzNnVjZjggb3Judjk0ZTV1Y21sbXJ2YXM4dHZudmllY2NAZw\",\n        \"created\": \"2016-08-26T13:45:12.000Z\",\n        \"updated\": \"2016-09-02T02:48:30.956Z\",\n        \"summary\": \"ORDEM DE SERVIÇO CARIBÉ NORDESTINO - CHEGADA \",\n        \"description\": \"Recife  aeroporto \",\n        \"location\": \"Adriano \",\n        \"creator\": {\n        \"email\": \"joseivaldodeoliveira@gmail.com\",\n        \"displayName\": \"Jose Ivaldo de Oliveira\"\n        },\n        \"organizer\": {\n        \"email\": \"ornv94e5ucmlmrvas8tvnviecc@group.calendar.google.com\",\n        \"displayName\": \"CARIBE NORDESTINO Viagens & Turismo\",\n        \"self\": true\n        },\n        \"start\": {\n        \"dateTime\": \"2016-09-01T06:00:00+01:00\"\n        },\n        \"end\": {\n        \"dateTime\": \"2016-09-01T07:00:00+01:00\"\n        },\n        \"transparency\": \"transparent\",\n        \"iCalUID\": \"n7fiitlpth16k67cs18bs6ucf8@google.com\",\n        \"sequence\": 1,\n        \"reminders\": {\n        \"useDefault\": true\n        }\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "eTickets",
+    "name": "PostCalendarioData_inicioData_fim"
+  },
+  {
+    "type": "post",
     "url": "/cidades",
     "title": "Criacao de cidades",
     "group": "eTickets",

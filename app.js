@@ -347,7 +347,52 @@ app.route("/cidades/")
         });
     });
 
-app.route("/calendario/")
+/**
+ * @api {post} /calendario/:data_inicio/:data_fim Lista de eventos
+ * @apiGroup eTickets
+ *
+ * @apiSuccess {String} status Lista os eventos da agenda
+ * 
+ * @apiSuccessExample {json} Sucesso
+        HTTP/1.1 200 OK
+        [
+            {
+                "kind": "calendar#event",
+                "etag": "\"2945569021912000\"",
+                "id": "n7fiitlpth16k67cs18bs6ucf8",
+                "status": "confirmed",
+                "htmlLink": "https://www.google.com/calendar/event?eid=bjdmaWl0bHB0aDE2azY3Y3MxOGJzNnVjZjggb3Judjk0ZTV1Y21sbXJ2YXM4dHZudmllY2NAZw",
+                "created": "2016-08-26T13:45:12.000Z",
+                "updated": "2016-09-02T02:48:30.956Z",
+                "summary": "ORDEM DE SERVIÇO CARIBÉ NORDESTINO - CHEGADA ",
+                "description": "Recife  aeroporto ",
+                "location": "Adriano ",
+                "creator": {
+                "email": "joseivaldodeoliveira@gmail.com",
+                "displayName": "Jose Ivaldo de Oliveira"
+                },
+                "organizer": {
+                "email": "ornv94e5ucmlmrvas8tvnviecc@group.calendar.google.com",
+                "displayName": "CARIBE NORDESTINO Viagens & Turismo",
+                "self": true
+                },
+                "start": {
+                "dateTime": "2016-09-01T06:00:00+01:00"
+                },
+                "end": {
+                "dateTime": "2016-09-01T07:00:00+01:00"
+                },
+                "transparency": "transparent",
+                "iCalUID": "n7fiitlpth16k67cs18bs6ucf8@google.com",
+                "sequence": 1,
+                "reminders": {
+                "useDefault": true
+                }
+            }
+        ]
+ *
+ */
+app.route("/calendario/:data_inicio/:data_fim")
     .post(function(req, res) {
         controller_calendario_get.executa(req, res, function(result) {
             res.json(result);

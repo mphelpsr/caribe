@@ -4,9 +4,8 @@ var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 var fs = require('fs');
 var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-var sample = require('../SampleClient');
 
-module.exports.lista_todos = function (req, res, callback) {
+module.exports.lista_todos = function(req, res, callback) {
 
     var OAuth2 = google.auth.OAuth2;
     var oauth2Client = new OAuth2(
@@ -15,23 +14,16 @@ module.exports.lista_todos = function (req, res, callback) {
         config.web.redirect_uris
     );
 
-    // set auth as a global default
-    /*
-    google.options({
-        auth: oauth2Client
-    });
-    */
-
-    // Retrieve tokens via token exchange explained above or set them:
     oauth2Client.setCredentials({
         access_token: config.web.access_token,
         refresh_token: config.web.refresh_token
-        // Optional, provide an expiry_date (milliseconds since the Unix Epoch)
-        //expiry_date: (new Date()).getTime() + (1000 * 60 * 60 * 24 * 7)
+            // Optional, provide an expiry_date (milliseconds since the Unix Epoch)
+            //expiry_date: (new Date()).getTime() + (1000 * 60 * 60 * 24 * 7)
     });
 
-    var startDate = '2016-10-01T00:00:00+10:00';
-    var maxDate = '2016-11-01T00:00:00+10:00';
+
+    var startDate = req.params.data_inicio + 'T00:00:00+10:00';
+    var maxDate = req.params.data_fim + 'T23:59:00+10:00';
 
     var params = {
         'calendarId': config.web.calendarId,
@@ -41,34 +33,18 @@ module.exports.lista_todos = function (req, res, callback) {
         "timeMax": maxDate
     }
 
-
-    //Com oAuth2
-    /*
-     var calendar = google.calendar({
+    var calendar = google.calendar({
         version: 'v3',
         auth: oauth2Client
     });
 
-    
-    calendar.events.list(params, function (err, result) {
+
+    calendar.events.list(params, function(err, result) {
         if (err) {
-            console.log(err);
+            callback(err, null);
         }
-        console.log(result);
+        callback(null, result.items);
     });
-    */
-
-    // Com API_KEY
-    var calendar = google.calendar('v3');
-    var API_KEY = config.web.API_KEY;
-    calendar.events.list({
-        auth: API_KEY,
-        userId: 'calendar',
-        calendarId: config.web.calendarId
-    }, function (err, result) {
-        console.log('Result: ' + (err ? err.message : result));
-    });
-
 
 
 }
